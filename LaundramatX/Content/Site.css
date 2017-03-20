@@ -1,0 +1,1007 @@
+﻿/* fallback */
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Material Icons'), local('MaterialIcons-Regular'), url('../fonts/MaterialIcon-Font.woff2') format('woff2');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -moz-font-feature-settings: 'liga';
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+    font-family: Roboto-Medium;
+    src: url('../fonts/roboto/Roboto-Medium.eot'), url('../fonts/roboto/Roboto-Medium.ttf') format('truetype'), url('../fonts/roboto/Roboto-Medium.woff');
+}
+
+@font-face {
+    font-family: Roboto-Regular;
+    src: url('../fonts/roboto/Roboto-Regular.eot'), url('../fonts/roboto/Roboto-Regular.ttf') format('truetype'), url('../fonts/roboto/Roboto-Regular.woff');
+}
+
+@font-face {
+    font-family: Roboto-Bold;
+    src: url('../fonts/roboto/Roboto-Bold.eot'), url('../fonts/roboto/Roboto-Bold.ttf') format('truetype'), url('../fonts/roboto/Roboto-Bold.woff');
+}
+
+@font-face {
+    font-family: ZreaksNFI;
+    src: url('../fonts/ZreaksNFI.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: Bonita;
+    src: url('../fonts/Bonita.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: Vtks Garota Bonita;
+    src: url('../fonts/Vtks Garota Bonita.ttf') format('truetype');
+}
+
+.ToastX {
+    background-color: #F35353;
+    color: white;
+    opacity: .4;
+}
+
+body {
+    font-family: Roboto-Medium;
+    padding-top: 60px;
+    padding-bottom: 20px;
+}
+
+#body {
+    background-color: rgba(235, 250, 250, 0.5);
+}
+
+
+h1, h2, h3, h4, h5, .card-title {
+    font-family: Roboto-Bold;
+}
+
+.PostActions {
+    padding-right: 22px;
+}
+
+    .PostActions li {
+        cursor: pointer;
+        padding-right: 15px;
+    }
+
+a:hover {
+    /*Display a hand when we hover a anchor tag*/
+    cursor: pointer;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px teal;
+}
+
+input[type=number].BasketChip {
+    width: 50px;
+    height: 20px;
+    border-radius: 20%;
+    padding: 0px 2px 2px 2px;
+    margin: -10px 10px 2px 0;
+    border: 2px solid lightgrey;
+}
+
+.PriceBtn {
+    color: white;
+    font-size: large;
+    text-shadow: 1px 1px 10px #394551;
+    background-color: crimson;
+}
+
+p {
+    padding: 10px 10px 10px 10px;
+}
+
+.container {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.chip {
+    background-color: slategrey;
+    color: aliceblue;
+}
+
+    .chip i {
+        color: white;
+    }
+
+
+.TextOverImage {
+    z-index: 1;
+    position: absolute;
+    top: 1px;
+    bottom: 20px;
+}
+
+/*Code for a custom dropdown*/
+.dropdown-content {
+    position: relative;
+    left: 10px;
+    top: 10px;
+    color: white;
+    background-color: white;
+    box-shadow: #394551 1px 1px 15px 1px inset;
+    border-radius: 10px 10px 10px 10px;
+    min-width: 300px;
+    z-index: 2;
+}
+
+.notification-badge {
+    position: relative;
+    left: 32px;
+    top: -7px;
+    color: #ffffff;
+    background-color: transparent;
+    margin: 0;
+    border-radius: 50%;
+    padding: 4px 10px;
+}
+
+.ProfileSlideShow {
+    height: 100%;
+    width: 100%;
+    border: 2px solid teal;
+}
+
+/*medium and large screen*/
+@media (min-width:640px) {
+    /*Shrink the log in modal on large and medium screen*/
+    #LogInModal {
+        width: 50%;
+        left: 25%;
+    }
+
+    .LaundromatProfile {
+    }
+}
+
+/*small screen*/
+@media (max-width:640px) {
+    .LaundromatProfile {
+        left: 0;
+    }
+}
+
+.blog {
+    padding-bottom: 20px;
+}
+
+/*TIMELINE STUFF*/
+/* ---- Timeline ---- */
+/*
+ * Circle needs to move to the center of the
+ * status below it, that has status-width
+ * so moving half of it would get us there, but that would actually be the left side of the
+ * circle in the center ; so substracting half a circle width from that
+ * will give us what we want.
+ */
+.timeline {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+    .timeline * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .timeline .timestamp {
+        display: flex;
+        justify-content: center;
+        padding-bottom: 15px;
+    }
+
+    .timeline .status {
+        display: flex;
+        border-top: 2px solid #D6DCE0;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 20px;
+        padding-top: 15px;
+        position: relative;
+        width: 140px;
+    }
+
+        .timeline .status::before {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            content: '';
+            height: 20px;
+            left: 60px;
+            position: absolute;
+            top: -10px;
+            width: 20px;
+        }
+
+    .timeline .complete > .status {
+        border-top: 2px solid teal;
+    }
+
+        .timeline .complete > .status::before {
+            background-color: teal;
+            border: 0;
+        }
+
+.timeline {
+    max-width: 100%;
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.WorkLI {
+    cursor: pointer;
+}
+/*END TIMELINE STUFF*/
+
+/*MY CLASSES CLASSES CLASSES*/
+.rating-form .form-item .RatingStar {
+    overflow: no-content;
+    float: right;
+    left: -1%;
+    padding-left: 2px;
+}
+
+.HelperRating {
+    z-index: 2;
+    padding-right: 20%;
+    position: relative;
+    width: 400px;
+}
+
+.LaundromatProfile {
+    width: 100%;
+    height: 100%;
+    max-height: 400px;
+    overflow: no-content;
+}
+
+    .LaundromatProfile img {
+        overflow: no-display;
+        width: 100%;
+        height: 100%;
+    }
+
+.FullSizeX {
+    width: 200px;
+    height: 100%;
+}
+
+.RecievePostHeader {
+    padding: 5px 1px 1px 9px;
+    height: 40px;
+}
+
+.TimePosted {
+    padding-top: 10px;
+    position: absolute;
+    right: 2%;
+    top: 0;
+}
+
+.TimeLeft {
+    padding-top: 50px;
+    position: absolute;
+    right: 2%;
+    width: 90px;
+}
+
+.TimeIcon {
+    position: absolute;
+    right: 120%;
+    top: 16px;
+}
+
+
+.PosterName {
+    color: #394551;
+    text-shadow: 1px 1px 1px #394551;
+    padding-left: 20px;
+}
+
+.recieveWashButton {
+    position: absolute;
+    bottom: 10px;
+    left: 47%;
+}
+
+.recieveWashText label {
+    position: absolute;
+    bottom: 45px;
+    left: 40%;
+    font-size: small;
+}
+
+.ClothingListDiv {
+    max-height: 300px;
+    height: Calc(100% - 150px);
+    overflow-y: scroll;
+}
+
+.LogInSubmit {
+    background-color: #F35353;
+}
+
+/*Style the profile pic*/
+.RecievePostHeader img {
+    float: left;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #394551;
+}
+
+/*END MY CLASSES CLASSES CLASSESS*/
+
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.XButton {
+    text-align: left;
+    text-decoration: solid;
+    text-transform: full-width;
+    text-shadow: 1px 1px crimson;
+    box-shadow: crimson 1px 1px none;
+}
+
+.XSmallButton {
+    height: 12px;
+    width: 24px;
+}
+
+/*Add the red underline on invalid text boxes*/
+.input-field input[XValidatable].incorrect {
+    border-bottom: 1px solid red;
+    box-shadow: 0 1px 0 0 red;
+}
+
+    .input-field input[XValidatable].incorrect:focus {
+        border-bottom: 1px solid red;
+        box-shadow: 0 1px 0 0 red;
+    }
+
+.input-field select[XValidatable].incorrect {
+    border-bottom: 1px solid red;
+    box-shadow: 0 1px 0 0 red;
+}
+
+    .input-field select[XValidatable].incorrect:focus {
+        border-bottom: 1px solid red;
+        box-shadow: 0 1px 0 0 red;
+    }
+
+textarea[XValidatable].incorrect {
+    border-bottom: 1px solid red;
+    box-shadow: 0 1px 0 0 red;
+}
+
+    textarea[XValidatable].incorrect:focus {
+        border-bottom: 1px solid red;
+        box-shadow: 0 1px 0 0 red;
+    }
+
+.TransX {
+    opacity: 0.8;
+    border: 2px outset yellow;
+}
+
+.Trans06X {
+    border-right: 2px outset transparent;
+}
+
+.card {
+    border-radius: 2%;
+}
+
+.card-image {
+    text-shadow: 1px 2px 9px blue;
+}
+
+#LogInModal.ErrorModal {
+    border: 2px outset red;
+    box-shadow: 0 1px 2px 0 crimson, 0 -1px 2px 0 red;
+}
+
+h2 {
+    font-family: Bonita;
+    text-align: center;
+    color: #F35353;
+    text-shadow: 1px 1px 2px #394551;
+    opacity: 0.9;
+}
+
+.RedBg {
+    background-color: #F35353;
+}
+
+.RedText {
+    color: #F35353;
+}
+
+.GreyText {
+    color: #394551;
+}
+
+.FunkyFont2 {
+    font-size: small;
+    font-family: Roboto-Medium;
+    color: #394551;
+    text-shadow: 1px 1px 1px #394551;
+}
+
+.FunkyFont {
+    font-size: small;
+    font-family: Roboto-Medium;
+    color: #F35353;
+    text-shadow: 1px 1px 1px #394551;
+}
+
+/*Pimp the card of the searched posts*/
+.SearchResult {
+    color: red;
+}
+
+/*This is to decrease the size of social network icons*/
+.NavIconDiv {
+    opacity: 0.8;
+    margin-left: 50px;
+}
+
+    .NavIconDiv span {
+        margin-left: 2%;
+    }
+
+.NavIcon {
+    width: 35px;
+    height: 35px;
+}
+
+    .NavIcon[facebook] {
+        background-color: blue;
+        border-radius: 100%;
+        box-shadow: 0 1px 1px 0 blue, 0 1px 6px 0 blue;
+    }
+
+        .NavIcon[facebook]:hover {
+            border-radius: 100%;
+            box-shadow: 0 1px 10px 0 blue, 0 1px 10px 0 blue;
+        }
+
+    .NavIcon[twitter] {
+        background-color: cyan;
+        border-radius: 100%;
+        box-shadow: 0 1px 6px 0 cyan, 0 1px 6px 0 blue;
+    }
+
+        .NavIcon[twitter]:hover {
+            box-shadow: 0 1px 10px 0 cyan, 0 1px 10px 0 blue;
+        }
+
+    .NavIcon[googleplus] {
+        background-color: crimson;
+        border-radius: 100%;
+        box-shadow: 0 1px 6px 0 crimson, 0 1px 6px 0 crimson;
+    }
+
+        .NavIcon[googleplus]:hover {
+            box-shadow: 0 1px 10px 0 crimson, 0 1px 10px 0 crimson;
+        }
+
+._hoverable {
+    cursor: pointer;
+}
+
+.StrongerText {
+    color: black;
+    text-shadow: 0 1px 16px teal;
+    font-family: sans-serif;
+    font-weight: bolder;
+}
+
+.StrongText {
+    color: black;
+    text-shadow: 0 1px 16px teal;
+    font-family: sans-serif;
+}
+
+#SideNavigation li {
+    padding-bottom: 1px;
+    align-self: center;
+    align-items: center;
+}
+
+
+#SideNavigation {
+    text-shadow: 20px 2px 80px white;
+    font-family: Roboto-Bold;
+}
+
+.SideNavXBG {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 170px;
+    height: 800px;
+    width: 100%;
+    background-color: #394551;
+    opacity: .3;
+}
+
+/*Send clothes customization stuff from chips to input boxes and the buttons*/
+
+#BtnChipAdd {
+    margin-left: 0;
+    height: 100%;
+    width: 36px;
+    border-radius: 100%;
+}
+
+#SendChipList {
+    width: 100px;
+    height: 80%;
+    padding-right: 1px;
+    color: white;
+    box-sizing: border-box;
+    background-color: transparent;
+    border: 0;
+}
+
+input[type=text]#SendChipList:focus {
+    color: white;
+    box-sizing: border-box;
+    background-color: transparent;
+    border: 0;
+}
+
+.chips {
+    border: 0;
+}
+
+#LaundryItems {
+    padding-top: 30px;
+}
+
+#LaundryBasket {
+    padding-top: 20px;
+}
+
+/*END END END Send clothes customization stuff from chips to input boxes and the buttons*/
+
+
+/*REMOVE THE GOOGLE MAPS TERMS*/
+a[href^="http://maps.google.com/maps"] {
+    display: none !important;
+}
+
+a[href^="https://maps.google.com/maps"] {
+    display: none !important;
+}
+/*END REMOVE GOOGLE MAPS TERMS*/
+
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display: none;
+}
+
+.gmnoprint div {
+    background: none !important;
+}
+/*LOADING LOADING LOADING*/
+
+.loadingDivFather {
+    height: 100%;
+}
+
+.loadingDiv {
+    background-color: #000;
+    position: relative;
+}
+
+@-webkit-keyframes animIn {
+    0% {
+        -webkit-transform: translateX(-100px);
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: translateX(100px);
+        transform: translateX(100px);
+        opacity: 0;
+    }
+}
+
+@keyframes animIn {
+    0% {
+        -webkit-transform: translateX(-100px);
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: translateX(100px);
+        transform: translateX(100px);
+        opacity: 0;
+    }
+}
+
+.loading {
+    left: 50%;
+}
+
+    .loading .bullet {
+        position: absolute;
+        padding: 2px;
+        border-radius: 50%;
+        -webkit-animation: animIn 3.5s alternate-reverse 0s infinite;
+        animation: animIn 3.5s alternate-reverse 0s infinite;
+    }
+
+        .loading .bullet:nth-child(1) {
+            -webkit-animation-delay: 0s;
+            animation-delay: 0s;
+            color: red;
+        }
+
+        .loading .bullet:nth-child(2) {
+            -webkit-animation-delay: .5s;
+            animation-delay: .5s;
+            color: crimson;
+        }
+
+        .loading .bullet:nth-child(3) {
+            -webkit-animation-delay: 1s;
+            animation-delay: 1s;
+            color: purple;
+        }
+
+        .loading .bullet:nth-child(4) {
+            -webkit-animation-delay: 1.5s;
+            animation-delay: 1.5s;
+            color: blue;
+        }
+
+        .loading .bullet:nth-child(5) {
+            -webkit-animation-delay: 2s;
+            animation-delay: 2s;
+            color: dodgerblue;
+        }
+
+        .loading .bullet:nth-child(6) {
+            -webkit-animation-delay: 2.5s;
+            animation-delay: 2.5s;
+            color: teal;
+        }
+
+        .loading .bullet:nth-child(7) {
+            -webkit-animation-delay: 3s;
+            animation-delay: 3s;
+            color: midnightblue;
+        }
+
+/*END END END LOADING*/
+
+/*SEARCH SEARCH SEARCH*/
+.cntr {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+    .cntr .cntr-innr {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+    }
+/*** STYLES ***/
+.search {
+    display: inline-block;
+    position: relative;
+    height: 35px;
+    width: 35px;
+    box-sizing: border-box;
+    margin: 0px 8px 7px 0px;
+    padding: 7px 9px 0px 9px;
+    border: 3px solid #FFFFFF;
+    border-radius: 25px;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+    cursor: text;
+}
+
+    .search:after {
+        content: "";
+        position: absolute;
+        width: 3px;
+        height: 20px;
+        right: -5px;
+        top: 21px;
+        background: #FFFFFF;
+        border-radius: 3px;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        -webkit-transition: all 200ms ease;
+        transition: all 200ms ease;
+    }
+
+    .search.active,
+    .search:hover {
+        border: 0;
+        width: 200px;
+        margin-right: 10px;
+    }
+
+        .search.active:after,
+        .search:hover:after {
+            height: 0px;
+        }
+
+    .search input {
+        width: 100%;
+        color: black;
+        box-sizing: border-box;
+        font-size: 16px;
+        background: transparent;
+    }
+
+/*END SEARCH SEARCH SEARCH END*/
+
+
+/*BIG SEARCH*/
+/*** STYLES ***/
+.searchX {
+    display: inline-block;
+    position: relative;
+    height: 31px;
+    width: 31px;
+    box-sizing: border-box;
+    margin: 2px 1px 7px 10px;
+    padding: 7px 9px 0px 9px;
+    border: 3px solid #F35353;
+    border-radius: 25px;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+    cursor: text;
+}
+
+    .searchX:after {
+        content: "";
+        position: absolute;
+        width: 3px;
+        height: 25px;
+        right: -8px;
+        top: 18px;
+        background: #394551;
+        border-radius: 3px;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        -webkit-transition: all 200ms ease;
+        transition: all 200ms ease;
+    }
+
+    .searchX.active,
+    .searchX:hover {
+        border: 0;
+        width: 220px;
+        height: 45px;
+        margin-right: 1px;
+        box-sizing: border-box;
+        margin: 0px 9px 0px 0px;
+        padding: 1px 0px 8px 1px;
+        border: 1px solid #F35353;
+    }
+
+        .searchX.active:after,
+        .searchX:hover:after {
+            height: 0px;
+        }
+
+    .searchX input {
+        height: 100%;
+        width: 100%;
+        color: #394551;
+        box-sizing: content-box;
+        font-size: 18px;
+        border: 0;
+        margin-bottom: 0;
+    }
+
+        .searchX input[Search]:active,
+        .searchX input[Search]:focus,
+        .searchX input[Search]:after {
+            border-bottom: 0 solid transparent;
+            box-shadow: transparent 0 0 inset;
+        }
+
+/*END BIG SEARCH*/
+
+/*FIXED NAV THINGI THAT HELPS TO SHOW ON SCROLL*/
+#header {
+    position: fixed;
+    top: 0;
+    height: 50px;
+    width: 100%;
+    text-shadow: 1px 8px 9px rgba(0,0,0,0.5);
+}
+
+.navbar.navbar-default {
+    margin-bottom: -30px;
+}
+/*END FIXED NAV THINGI*/
+
+
+/*START RATING STUFF*/
+
+.rating-form .form-item {
+    direction: rtl;
+}
+
+.rating-form input[type='radio']:checked ~ label .material-icons {
+    color: gold;
+}
+
+.rating-form input[type='radio'] + label:before {
+    opacity: 0;
+}
+
+.rating-form input[type='radio'] + label:after {
+    opacity: 0;
+}
+
+/*END RATING STUFF*/
+
+
+/*DRY CLEAN STUFF*/
+
+.DryCleanNumber input {
+    width: 90%;
+    width: 100%;
+    color: black;
+    box-sizing: border-box;
+    font-size: 16px;
+    background: transparent;
+    font-size: small;
+    font-family: Roboto-Bold;
+}
+
+/*END DRY CLEAN STUFF*/
+
+.PropertyListDiv {
+    font-size: larger;
+    text-shadow: 0 0 0 white;
+    max-height: 200px;
+    height: Calc(100%);
+    overflow-y: scroll;
+}
+
+.HelperAction {
+    padding-top: 30px;
+}
+
+
+/*Notification drawer customize*/
+
+.NotifyItem {
+}
+
+    .NotifyItem .NotifyIcon {
+        padding-top: 10px;
+        padding-left: 1px;
+        padding-right: 20px;
+    }
+
+    .NotifyItem .NotifyMsg {
+        margin-bottom: -20px;
+    }
+
+
+.NotificationLi {
+    box-shadow: #394551 0px 0px 2px 0px inset;
+}
+
+    .NotificationLi:hover,
+    .NotificationLi:focus,
+    .NotificationLi:focus {
+        box-shadow: transparent 0px 0px 0px 0px inset;
+    }
+
+.DetailNotifyMsg {
+    margin-top: 10px;
+}
+
+.DetailNotifyIcon {
+    margin-top: 25px;
+}
+
+.DetailNotifyLI {
+    cursor: pointer;
+    box-shadow: #394551 0px 0px 2px 0px inset;
+}
+
+    .DetailNotifyLI:hover,
+    .DetailNotifyLI:focus,
+    .DetailNotifyLI:focus {
+        box-shadow: #F35353 1px 1px 15px 1px inset;
+    }
+
+/*END Notification drawer customize*/
+
+/*CUSTOM CHAT BUBBLES*/
+.OrderChat {
+    height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.LeftChat {
+    border-radius: 1px 1px 1px 20px;
+    font-size: smaller;
+}
+
+    .LeftChat span {
+        font-size: x-small;
+    }
+
+.RightChat {
+    border-radius: 1px 1px 20px 1px;
+    font-size: smaller;
+}
+
+    .RightChat span {
+        font-size: x-small;
+    }
+
+.OrderSidePanel {
+    overflow-y: scroll;
+}
+
+.OrderSidePanel2 {
+    width:100%;
+    overflow-x: scroll;
+}
+/*END CUSTOM CHAT BUBBLES*/
+
+.BtnPlaceSelectionDiv {
+    cursor: pointer;
+}

@@ -1,0 +1,35 @@
+﻿@using LaundramatX.Models
+@using LaundramatX.Classes
+@model List<PostHelper>
+@{
+    ViewBag.Title = "Pending Laundry";
+}
+
+<div class="row">
+    <div class="col s12">
+        <h5 class="text-center">We have @Model.Count orders</h5>
+        @foreach (var help in Model)
+        {
+            <div class="col s4 hide-on-med-and-up row OrderSidePanel2">
+                <div class="card-panel transparent BtnLoadOrder" onclick="LoadOrder(this,'@help.ID')" style="cursor:pointer">
+                    <h6 class="text-center">@help.Account.Name @help.Account.Surname {@help.Orders.Count}</h6>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="row">
+     <div class="col s3 hide-on-small-and-down row OrderSidePanel">
+        @foreach (var help in Model)
+        {
+            <div class="col s12">
+                <div class="card-panel transparent BtnLoadOrder" onclick="LoadOrder(this,'@help.ID')" style="cursor:pointer">
+                    <h6 class="text-center">@help.Account.Name @help.Account.Surname {@help.Orders.Count}</h6>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col m9 s12 center" id="OrderPanel">
+        
+    </div>
+</div>

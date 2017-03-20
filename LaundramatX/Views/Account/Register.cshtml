@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+
+<form action="@Url.Action("Register","Account")" id="RegisterBodyDiv" class="teal-text text-darken-4" method="post">
+    <div class="row center">
+        <div class="col s12">
+            <div class="row">
+                <div class="input-field col s6 m9 l10">
+                    <input id="RegName" type="text" class="validate" required XValidatable />
+                    <label for="RegName">Name : </label>
+                </div>
+                <div class="input-field col s6 m3 l2">
+                    <label id="NameError" class="red-text"></label>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="row">
+                <div class="input-field col s6 m9 l10">
+                    <input id="RegSurname" class="validate" type="text" required XValidatable />
+                    <label for="RegSurname">Surname : </label>
+                </div>
+                <div class="input-field col s6 m3 l2">
+                    <label id="SurnameError" class="red-text"></label>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="row">
+                <div class="input-field col s6 m9 l10">
+                    <input id="RegContact" class="validate" type="number" required XValidatable />
+                    <label for="RegContact">Contact Numbers *: </label>
+                </div>
+                <div class="input-field col s6 m3 l2">
+                    <label id="ContactError" class="red-text"></label>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="row">
+                <div class="input-field col s6 m9 l10">
+                    <input id="RegPassword" class="validate" type="password" required XValidatable />
+                    <label for="RegPassword">Password *: </label>
+                </div>
+                <div class="input-field col s6 m3 l2">
+                    <label id="PasswordError" class="red-text"></label>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="row">
+                <div class="input-field col s6 m9 l10">
+                    <input id="RegConfirmPassword" class="validate" type="password" required XValidatable />
+                    <label for="RegConfirmPassword">Confirm Password *: </label>
+                </div>
+                <div class="input-field col s6 m3 l2">
+                    <label id="ConfirmPasswordError" class="red-text"></label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+        <div class="col s12">
+            <div class="row">
+                <div class="col s12 m6 offset-m3 l4 offset-l4">
+                    <div class="row">
+                        <label for="RegRadioEmail">Do you have an email?</label>
+                    </div>
+                    <div class="row">
+                        <div class="switch">
+                            <label>
+                                No
+                                <input id="RegRadioEmail" Xcheck="unchecked" type="checkbox" onclick="HideOrShowEmail()" />
+                                <span class="lever"></span>
+                                Yes
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="col s12 hidden" id="RegEmailActivation">
+            <div class="row">
+                <div class="input-field col s6 m9 l10">
+                    <input id="RegEmail" class="validate" type="email" XValidatable />
+                    <label for="RegEmail">Email : </label>
+                </div>
+                <div class="input-field col s6 m3 l2">
+                    <label id="EmailError" class="red-text"></label>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="row">
+                <div class="input-field col s12 m6 offset-m3 l4 offset-l4">
+                    <div class="switch">
+                        <label>
+                            <img src="~/Content/img/Icons/human-female.png" alt="Female">
+                            <input Xcheck="Female" type="checkbox" id="RegGenderSet" onclick="RegChangeGender()" />
+                            <span class="lever"></span>
+                            <img src="~/Content/img/Icons/human-male.png" alt="Male">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12">
+            <div class="row">
+                <div class="input-field col s12">
+                    <label id="RegistrationErrors" class="red-text"></label>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 hidden" id="RegisterPreloader" style="right:50%">
+            <div class="row">
+                @*Preloader*@
+                <div class="preloader-wrapper big active">
+                    <div class="spinner-layer spinner-blue">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*End of Preloader*@
+        <div class="col s12">
+            <div class="row">
+                <div class="input-field col s12">
+                    <a class="rounded btn btn-flat waves-effect teal XYellowfy" style="width:100%;height:100%" onclick="RegisterUser('@Url.Action("ValidateRegistration","Account")','@Url.Action("Index","Home")')">Register</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

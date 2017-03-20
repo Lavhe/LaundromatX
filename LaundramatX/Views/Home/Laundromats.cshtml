@@ -1,0 +1,63 @@
+﻿@using LaundramatX.Models
+@using LaundramatX.Classes
+@model List<Account>
+@{
+    ViewBag.Title = "Laundromats";
+}
+
+<h2>Laundromats</h2>
+
+<div class="row grid">
+    <div class="blog-sizer"></div>
+    @foreach (var item in Model)
+            {
+        <div class="blog">
+            <div class="card">
+                <h6 class="card-title center text-center grey-text text-darken-4">@item.Name</h6>
+                <div class="card-image waves-effect LaundromatProfile">
+                    <img src="@item.ProfilePic">
+                </div>
+                <div class="card-content">
+                    <div class="row rating-form form-group">
+                        <div class="col s12 form-item center row center" style="margin-left:0;width:100%">
+                            @for (int i = 5; i >= 1; i--)
+                            {
+                                if (Convert.ToBoolean(Session[X.isActivatedX]))
+                                {
+                                    <input id="@item.AccountID rating-@i" name="rating_@item.AccountID" class="rateUser_@item.AccountID" type="radio" value="@i" onclick="RateUser('@item.AccountID','@i','@X.GetUserID(Session[X.UserX])','@Url.Action("RateUser","Admin")','.rateUser_@item.AccountID')" />
+                                        <label class="col right RatingStar" for="@item.AccountID rating-@i" data-value="@i">
+                                            <span class="rating-star">
+                                                <i class="material-icons">star</i>
+                                            </span>
+                                        </label>
+                                }
+                                else
+                                {
+                                    <input id="@item.AccountID rating-@i" name="rating_@item.AccountID" class="rateUser_@item.AccountID" type="radio" value="@i" disabled />
+                                        <label class="col right RatingStar" for="@item.AccountID rating-@i" data-value="@i">
+                                            <span class="rating-star">
+                                                <i class="material-icons">star</i>
+                                            </span>
+                                        </label>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <p><i class="material-icons">person_pin</i> @item.Surname @item.Name</p>
+                    @if (item.LocationX != null)
+                    {
+                        <p><i class="material-icons">location_on</i> @item.LocationX.LocationTownCity</p>
+                    }
+                    <p><i class="material-icons">phone</i> <text>0</text>@item.Contact</p>
+                    <p><i class="material-icons">email</i> @item.Email</p>
+                    <p>
+                        <i class="material-icons">person</i> @item.Gender
+                    </p>
+                    <div class="center">
+                        <a onclick="RedirectAction('@Url.Action("Index","Account",new { userID = item.AccountID })')" class="btn teal white-text waves-effect waves-orange">View Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

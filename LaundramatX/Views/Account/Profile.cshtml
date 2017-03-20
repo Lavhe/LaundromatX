@@ -1,0 +1,293 @@
+﻿@using LaundramatX.Models;
+@using LaundramatX.Classes;
+@model Account
+@{
+    ViewBag.Title = "Profile";
+}
+
+<h2>Edit Profile</h2>
+
+<div class="row">
+    <div class="col s12 m6">
+        <div class="card">
+            <div class="card-title text-center">
+                <h4>Personal Info</h4>
+            </div>
+            <div class="card-content row">
+                <div class="col s12 center">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="EditName" type="text" class="validate" placeholder="e.g Uzzie" value="@Model.Name" required XValidatable />
+                            <label for="EditName">Name : </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 center">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="EditSurname" class="validate" placeholder="e.g Smith" value="@Model.Surname" type="text" required XValidatable />
+                            <label for="EditSurname">Surname : </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 center">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="EditEmail" class="validate" value="@Model.Email" type="email" XValidatable />
+                            <label for="EditEmail">Email : </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 center">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="EditAge" class="validate" value="@Model.Age" type="number" XValidatable />
+                            <label for="EditAge">Age : </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 center">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="EditDesc" class="validate materialize-textarea" XValidatable>@Model.Description</textarea>
+                            <label for="EditDesc">Description : </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-action">
+                <p id="EditPersonalErrors" class="red-text text-center"></p>
+                <a class="btn btn-large btn-flat waves-effect teal white-text" onclick="EditSaveChanges('personal',@Model.AccountID)" style="width:100%">Save Changes</a>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m6">
+        <div class="card">
+            <div class="card-title text-center">
+                <h4>Company Info</h4>
+            </div>
+            <div class="card-content row">
+                <div class="col s12 row">
+                    <h6 class="text-center">Companies you own (@Model.Companies.Count)</h6>
+                    <ul class="collection">
+                        @foreach (var company in Model.Companies)
+                        {
+                            <li class="collection-item black-text">
+                                @company.CompanyName
+                                <a class="grey-text ultra-small right"><i class="material-icons red-text">delete</i></a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="divider"></div>
+
+                <div class="col s12 center text-center">
+                    <div class="row">
+                        <div class="input-field col s12 text-center center">
+                            <input id="EditRadioCompany" Xcheck="unchecked" type="checkbox" onclick="HideOrShowCompanyInfo()" />
+                            <label for="EditRadioCompany" class="text-accent-4">Add a company</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s12 row hidden" id="CompanyProperties">
+
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12 center text-center">
+                                <input id="EditCampanyName" class="validate" type="text" XValidatable />
+                                <label for="EditCampanyName">Company Name : </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12 center text-center">
+                                <input id="EditCampanyAddress" placeholder="e.g Ditton 34 Johannesburg" class="validate" type="text" XValidatable />
+                                <label for="EditCampanyAddress">Company Address : </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12 center text-center">
+                                <input id="EditCampanyTell" class="validate" type="number" XValidatable />
+                                <label for="EditCampanyTell">Company Tel. : </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12 center text-center">
+                                <input id="EditCampanyWapsite" class="validate" value="www." type="text" XValidatable />
+                                <label for="EditCampanyWapsite">Company Wapsite : </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12 center text-center">
+                                <textarea id="EditCampanyAbout" class="materialize-textarea validate" XValidatable></textarea>
+                                <label for="EditCampanyAbout">About Company : </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-action">
+                <p id="EditAddCompanyErrors" class="red-text text-center"></p>
+                <a class="btn btn-flat btn-large RedBg teal white-text waves-effect" onclick="EditSaveChanges('addcompany',@Model.AccountID)" style="width:100%">Add Company</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12 m6">
+        <div class="row center text-center">
+            <div class="col s12">
+                <div class="row">
+                    <label for="EditProfilePic">Profile Picture (Click on the image to change it) : </label>
+                </div>
+            </div>
+            <div class="col s12">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="file-field z-depth-3">
+                            <div class="row">
+                                @using (Html.BeginForm("ChangeProfilePic", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    <div class="waves-effect waves-teal col s12 m6">
+                                        <img name="EditProfilePicImg" id="EditProfilePicImg" src="@Model.ProfilePic" style="width:200px;height:200px" alt="Your profile pic will appear here Just click on 'Set'                    then you are done .. THANK YOU" />
+                                        <input id="EditProfilePic" name="EditProfilePic" accept="image/gif, image/jpeg, image/png" class="input validate" type="file" XValidatable />
+                                    </div>
+                                    <div class="file-path-wrapper col s12 m6">
+                                        <input class="file-path validate" type="text" placeholder="Choose a profile picture">
+                                    </div>
+                                    <div id="ChangeProfileLoad" class="loadingDivFather hidden col s12">
+                                        <div class="loading loadingDiv">
+                                            <div class="bullet">L</div>
+                                            <div class="bullet">o</div>
+                                            <div class="bullet">a</div>
+                                            <div class="bullet">d</div>
+                                            <div class="bullet">i</div>
+                                            <div class="bullet">n</div>
+                                            <div class="bullet">g</div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12">
+                                        <button type="submit" class="btn teal right text-right disabled" id="SetProfilePic">Set this image</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12">
+        <div class="card">
+            <div class="card-title center text-center">
+                <h4>
+                    Locations
+                </h4>
+            </div>
+            <div class="card-content row">
+                <div class="col s12 m6">
+                    <div class="card">
+                        <div class="card-title center text-center">
+                            <h5>
+                                Home Location
+                            </h5>
+                        </div>
+                        <div class="card-content">
+                            <div class="center text-center">
+                                <input type="search" id="Edit_HomeLocationText" class="center text-center" placeholder="Search Your Location" />
+                            </div>
+                        </div>
+                        <div class="card-image waves-effect" style="height:200px;width:100%">
+                            <div style="width:100%;height:100%;z-index:-1" id="Edit_HomeLocationMap">
+                            </div>
+                        </div>
+                        <div class="card-action row">
+                            <div class="col s6">
+                                <h5 class="text-center">Old Home Location</h5>
+                                <p id="Edit_HomeLocationText_Old" class="small"></p>
+                            </div>
+                            <div class="col s6 RedText">
+                                <h5 class="text-center">Current Home Location</h5>
+                                <p id="Edit_HomeLocationText_New"></p>
+                            </div>
+                            <div class="col s12">
+                                <a class="btn btn-flat btn-large teal white-text waves-effect disabled" id="Edit_HomeLocationBtn_SaveChanges" onclick="EditSaveChanges('homelocation',@Model.AccountID)" style="width:100%">Save Changes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6">
+                    <div class="card">
+                        <div class="card-title center text-center">
+                            <h5>
+                                Work Location
+                            </h5>
+                        </div>
+                        <div class="card-content">
+                            <div class="center text-center">
+                                <input type="search" id="Edit_WorkLocationText" class="center text-center" placeholder="Search Work Location" />
+                            </div>
+                        </div>
+                        <div class="card-image waves-effect" style="height:200px;width:100%">
+                            <div style="width:100%;height:100%;z-index:-1" id="Edit_WorkLocationMap">
+                            </div>
+                        </div>
+                        <div class="card-action row">
+                            <div class="col s6">
+                                <h5 class="text-center">Old Work Location</h5>
+                                <p id="Edit_WorkLocationText_Old" class="small"></p>
+                            </div>
+                            <div class="col s6 RedText">
+                                <h5 class="text-center">Current Work Location</h5>
+                                <p id="Edit_WorkLocationText_New"></p>
+                            </div>
+                            <div class="col s12">
+                                <a class="btn btn-flat btn-large teal white-text waves-effect disabled"  id="Edit_WorkLocationBtn_SaveChanges" onclick="EditSaveChanges('worklocation',@Model.AccountID)" style="width:100%">Save Changes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row center text-center">
+    <div class="col s12">
+        <div class="row">
+            <div class="input-field col s12">
+                <label id="EditProfileErrors" class="red-text"></label>
+            </div>
+        </div>
+    </div>
+
+    @*Preloader*@
+    <div class="col s12 hidden" id="EditProfilePreloader" style="right:50%">
+        <div class="row">
+            <div class="loadingDivFather">
+                <div class="loading loadingDiv">
+                    <div class="bullet">L</div>
+                    <div class="bullet">o</div>
+                    <div class="bullet">a</div>
+                    <div class="bullet">d</div>
+                    <div class="bullet">i</div>
+                    <div class="bullet">n</div>
+                    <div class="bullet">g</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*End of Preloader*@
+</div>

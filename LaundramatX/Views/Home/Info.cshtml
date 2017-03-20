@@ -1,0 +1,167 @@
+﻿@using LaundramatX.Classes
+@{
+    ViewBag.Title = "Info";
+}
+
+<div class="row">
+    <div class="col s6 offset-s3 hide-on-med-and-up card-image waves-effect">
+        <img src="~/Content/img/Logo/Logo.png" style="width:100%;height:100%" class="img-fluid" />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 m10 offset-m1">
+        <div class="section">
+
+            <div class="divider"></div>
+
+            <div id="contact-page" class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s12 m6 offset-m3 l4 offset-l4 text-center center">
+                            <span class="text-center center NavIconDiv">
+                                <span class="col s2">
+                                    <a href="http://www.facebook.com">
+                                        <img src="~/Content/img/Icons/facebook.png" class="NavIcon" facebook />
+                                    </a>
+                                </span>
+                                <span class="col s1"></span>
+                                <span class="col s2">
+                                    <a href="http://www.googleplus.com">
+                                        <img src="~/Content/img/Icons/google.png" class="NavIcon" googleplus />
+                                    </a>
+                                </span>
+                                <span class="col s1"></span>
+                                <span class="col s2">
+                                    <a href="http://www.twitter.com">
+                                        <img src="~/Content/img/Icons/twitter.png" class="NavIcon" twitter />
+                                    </a>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="col s12">
+                            <p>
+                                <h4>LaundromatX</h4> was first built in June 2016, By <a href="http://uzzie.xyz">Sirwali Uzzie</a> as a website for Laundrants to meet with their customers more conviniently,<br />
+
+                            </p>
+                        </div>
+                    </div>
+                    <a class="btn-floating activator btn-move-up waves-effect waves-light darken-2 right">
+                        <i class="material-icons">info</i>
+                    </a>
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <div class="card">
+                                <h3 class="center">Talk to us</h3>
+                                <div class="card-content">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="ContactUsName" type="text" placeholder="Enter you name" XValidatable />
+                                            <label for="ContactUsName">Your name</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="ContactUsEmail" type="email" placeholder="Enter your email" XValidatable />
+                                            <label for="ContactUsEmail">Your email</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <textarea id="ContactUsMessage" class="materialize-textarea" placeholder="Type in your message here" XValidatable></textarea>
+                                            <label for="ContactUsMessage">Your Message</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <span id="ContactUsErrors" class="red-text"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="row center" onclick="SubmitTalkToUs('@Url.Action("TalkToUs","Help")','#ContactUsName', '#ContactUsEmail', '#ContactUsMessage', '#ContactUsErrors')">
+                                            <input type="button" class="btn waves-effect waves-teal lighten-2 GreyText" value="Send" style="width:100%" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m6">
+                            <ul class="collapsible collapsible-accordion" data-collapsible="accordion">
+                                <li>
+                                    <div class="collapsible-header"><i class="mdi-communication-live-help"></i> FAQ</div>
+                                    <div class="collapsible-body" style="">
+                                        <ul class="collection">
+                                            <li class="collection-item">
+                                                <span>
+                                                    Is LaundromatX free?
+                                                </span><br />
+                                                <span class="text-center teal-text">Yes</span>
+                                            </li>
+                                            <li class="collection-item">
+                                                <span>
+                                                    Will LaundromatX publish my contact details to strangers?
+                                                </span><br />
+                                                <span class="text-center teal-text">No</span>
+                                            </li>
+                                            <li class="collection-item">
+                                                <span>
+                                                    How do i contribute to LaundromatX?
+                                                </span><br />
+                                                <span class="text-center">Simply email us at : <a mailto="laundromatX@gmail.com">laundromatX@gmail.com</a></span>
+                                            </li>
+                                            <li class="collection-item">
+                                                <span>
+                                                    Who is the owner of LaundromatX?
+                                                </span><br />
+                                                <span class="text-center"><a href="http://uzzie.xyz">Sirwali Uzzie</a></span>
+                                            </li>
+                                            <li class="collection-item">
+                                                <span>
+                                                    How secure is LaundromatX?
+                                                </span><br />
+                                                <span class="text-center">Security is our key objective , We use the strongest encryption system and a dedicated server which is very secure.</span>
+                                            </li>
+                                            <li class="collection-item">
+                                                <span>
+                                                    Do i get to give LaundromatX my banking details?
+                                                </span><br />
+                                                <span class="text-center teal-text">No no no, You decide with the person you are paying (We do not touch people's money <i class="material-icons">tag_faces</i>).</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="active">
+                                    <div class="collapsible-header active"><i class="mdi-communication-email"></i> Need Help?</div>
+                                    <div class="collapsible-body" style="display: none;">
+                                        <p>We welcome your inquiries at the email address <a mailto="laundromatX@gmail.com">laundromatX@gmail.com</a>.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="collapsible-header"><i class="mdi-editor-insert-emoticon"></i> Testimonial</div>
+                                    <div class="collapsible-body" style="">
+                                        <blockquote>Fantastic product, my sites all run super fast and the support is excellent!<br>The website you designed helped a lot! </blockquote>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                    <h6 class="text-center"><u>Terms and Conditions</u></h6>
+                    <p>BLUH BLUH BLUH BLUH!!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="row">
+    <div class="col s12">
+        <a href="http://www.chitika.com/publishers/apply?refid=lavheuzzie"><img src="http://images.chitika.net/ref_banners/728x90_money.png" /></a>
+    </div>
+</div>
+

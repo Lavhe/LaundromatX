@@ -1,0 +1,164 @@
+﻿@using LaundramatX.Classes
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@section SlideShow{
+    <div style="height:100%;margin-top:-60px" id="HomeXPage">
+        <div class="card-panel grey lighten-2">
+            <div class="col s6 offset-s3 center center-align">
+                <img class="center" style="padding-top:2%;padding-left:15%;width:100%;height:5%" src="~/Content/img/Logo/Logo.png" />
+                <div class="right hide-on-small-only" style="position:absolute;right:10px">
+                    @if (Convert.ToBoolean(Session[X.isActivatedX]))
+                    {
+                        <div class="right">
+                            <div class="horizontal toolbar click-to-toggle">
+                                <a class="btn btn-large btn-floating transparent waves-effect z-depth-4">
+                                    <img src="@X.GetUser(Session).ProfilePic" style="width:100%;height:100%" />
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a class="waves-effect waves-ripple waves-teal NotificationShaker" onclick="RedirectAction('@Url.Action("notifications", "notify")')">
+                                            <i class="material-icons">notifications</i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="waves-effect waves-ripple waves-teal" onclick="RedirectAction('@Url.Action("c", "Notify")')">Orders</a>
+                                    </li>
+                                    <li>
+                                        <a class="waves-effect waves-ripple waves-teal" onclick="RedirectAction('@Url.Action("Index", "Account", new { userID = X.GetUserID(Session[X.UserX]) })')">
+                                            <i class="material-icons">perm_identity</i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="waves-effect waves-ripple waves-teal" href="@Url.Action("Profile", "Account")">
+                                            <i class="material-icons">mode_edit</i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="waves-effect waves-ripple waves-teal" onclick="RedirectAction('@Url.Action("LogOutUser", "Account")')">
+                                            <i class="material-icons">exit_to_app</i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="LogInFAB" class="right" style="">
+                            <a class="btn btn-floating waves-effect RedBg modal-trigger XButton z-depth-4" title="Log in" href="#LogInModal"><i class="material-icons">perm_identity</i></a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row center text-center" style="height:10%;width:100%">
+            <div class="cntr cntr-innr">
+                <label class="searchX text-center" for="HomeSearch">
+                    <input id="HomeSearch" class="inpt_search text-center" Search link="@Url.Action("Search","Home")" type="search" />
+                </label>
+            </div>
+            <div class="red-text">@ViewBag.Message</div>
+        </div>
+        <div class="card-panel row grey lighten-2">
+            <div onclick="RedirectAction('@Url.Action("Receive","ReceiveX")')" class="col m2 text-center FunkyFont2 _hoverable hide-on-small-only" style="height:100%">
+                <img src="~/Content/img/Logo/receive.png" class="img-fluid img-responsive" />
+            </div>
+            <div id="HomeIntro" class="col s12 m8 center text-center FunkyFont GreyText">
+                Provides a platform for people :<br />
+                <span class="typer" id="DetailAboutX" data-delay="50" data-delim="|" data-words="To Post their laundry           |To Search for customers            |To Bid for a customer               |To Earn cash for doing laundry                 |To gauge the price to pay for laundry                   |To get their laundry done in no time                             ">
+                </span>
+                <span class="cursor" data-cursorDisplay="_" data-owner="DetailAboutX"></span>
+                <p></p>
+                <a class="modal-trigger XSmallButton small" onclick="{$('#VideoHiveImg').attr('src', '/LaundromatX/Content/img/LaundromatX_Videohive.gif')}" style="font-size:20px" href="#VideoHiveModal">Videohive</a>
+                <div id="VideoHiveModal" class="modal">
+                    <div class="modal-close circle btn btn-floating red" style="float:right"><i class="material-icons">close</i></div>
+                    <div class="card" style="width:100%">
+                        <div class="card-image waves-effect" style="width:100%;height:100%">
+                            <img id="VideoHiveImg" class="img-responsive img-fluid" style="width:100%;height:100%" />
+                        </div>
+                        <div class="card-action">
+                            <a class="RedText" href="@Url.Action("Info","Home")">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div onclick="RedirectAction('@Url.Action("Send","SendX")')" class="col m2 text-center FunkyFont grey lighten-2 _hoverable hide-on-small-only" style="height:100%">
+                <img src="~/Content/img/Logo/send.png" class="img-fluid img-responsive" />
+            </div>
+        </div>
+        <div class="row col s12 hide-on-med-and-up">
+            @if (Convert.ToBoolean(Session[X.isActivatedX]))
+            {
+                <div class="right">
+                    <div class="horizontal toolbar click-to-toggle">
+                        <a class="btn btn-large btn-floating transparent waves-effect z-depth-4">
+                            <img src="@X.GetUser(Session).ProfilePic" style="width:100%;height:100%" />
+                        </a>
+                        <ul class="inline">
+                            <li>
+                                <a class="waves-effect waves-ripple waves-teal NotificationShaker" onclick="RedirectAction('@Url.Action("notifications", "notify")')">
+                                    <i class="material-icons">notifications</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-ripple waves-teal" onclick="RedirectAction('@Url.Action("c", "Notify")')">Orders</a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-ripple waves-teal" onclick="RedirectAction('@Url.Action("Index", "Account", new { userID = X.GetUserID(Session[X.UserX]) })')">
+                                    <i class="material-icons">perm_identity</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-ripple waves-teal" href="@Url.Action("Profile", "Account")">
+                                    <i class="material-icons">mode_edit</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-ripple waves-teal" onclick="RedirectAction('@Url.Action("LogOutUser", "Account")')">
+                                    <i class="material-icons">exit_to_app</i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div id="LogInFAB" class="right" style="">
+                    <a class="btn btn-floating waves-effect RedBg modal-trigger XButton z-depth-4" title="Log in" href="#LogInModal"><i class="material-icons">perm_identity</i></a>
+                </div>
+            }
+        </div>
+        <div class="card-panel row grey lighten-2 hide-on-med-and-up" style="height:40%;width:100%;position:absolute">
+            <div onclick="RedirectAction('@Url.Action("Receive","ReceiveX")')" class="col s6 text-center FunkyFont2 grey lighten-2 _hoverable" style="height:100%">
+                <img src="~/Content/img/Logo/receive.png" class="img-fluid img-responsive" />
+            </div>
+            <div onclick="RedirectAction('@Url.Action("Send","SendX")')" class="col s6 text-center FunkyFont grey lighten-2 _hoverable" style="height:100%">
+                <img src="~/Content/img/Logo/send.png" class="img-fluid img-responsive" />
+            </div>
+        </div>
+    </div>
+}
+
+@*He is a first time visitor*@
+@if (Response.Cookies.Get("VisitedCookie") == null)
+{
+    <div>
+        <div class="card-title text-center">
+            <label>Videohive</label>
+            <div class="divider"></div>
+            <div class="row"></div>
+        </div>
+        <div id="PreviewGif" class="row center">
+            <div class="col s12 m6 offset-m3">
+                <div class="card">
+                    <div class="card-image waves-effect">
+                        <img src="~/Content/img/LaundromatX_Videohive.gif" style="width:100%;height:100%" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

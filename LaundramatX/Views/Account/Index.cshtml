@@ -1,0 +1,244 @@
+﻿@using LaundramatX.Classes;
+@model LaundramatX.Models.Account
+@{
+    ViewBag.Title = Model.Name + " " + Model.Surname;
+}
+
+<div class="ProfileAccountPage hidden">
+    @Model.AccountID
+</div>
+
+<div id="profile-page-header" class="card">
+    <div class="card-image row">
+        <div class="col s12 waves-effect waves-block waves-light carousel-slider carousel-indicators">
+            <img class="center col s12 m6 offset-m3 l4 offset-l4 ProfileSlideShow" src="@Model.ProfilePic" alt="User Profile pic">
+        </div>
+    </div>
+    <div class="card-content">
+        <div class="row">
+            <div class="col m4 s12 center text-center">
+                <h4 class="card-title grey-text text-darken-4">@Model.Name @Model.Surname</h4>
+            </div>
+
+            <div class="col m4 s12 center text-center">
+                <div class='row rating-form form-group'>
+                    <div class='col s12 form-item center row center' style='margin-left:0;width:100%'>
+                        @if (Convert.ToBoolean(Session[X.isActivatedX]))
+                        {
+                            for (int i = 5; i >= 1; i--)
+                            {
+                                <input id='@Model.AccountID rating-@i' name='rating_@Model.AccountID' class='rateUser_@Model.AccountID' type='radio' value='@i' onclick="RateUser('@Model.AccountID','@i','@X.GetUserID(Session[X.UserX])','@Url.Action("RateUser", "Admin")','.rateUser_@Model.AccountID')" />
+                                <label class='col right RatingStar' for='@Model.AccountID rating-@i' data-value='@i'>
+                                    <span class='rating-star'>
+                                        <i class='material-icons'>star</i>
+                                    </span>
+                                </label>
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 5; i >= 1; i--)
+                            {
+                                <input id='@Model.AccountID rating-@i' name='rating_@Model.AccountID' class='rateUser_@Model.AccountID' type='radio' value='@i' disabled />
+                                <label class='col right RatingStar' for='@Model.AccountID rating-@i' data-value='@i'>
+                                    <span class='rating-star'>
+                                        <i class='material-icons'>star</i>
+                                    </span>
+                                </label>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            @if (X.GetUser(Session) != null)
+            {
+                if (Model.AccountID == X.GetUser(Session).AccountID)
+                {
+                    <div class="col m4 s12 center text-center right">
+                        <a class="btn btn-floating waves-effect transparent" href="@Url.Action("Profile","Account")"><i class="material-icons black-text large">mode_edit</i></a>
+                        <a class="btn btn-large btn-floating waves-effect transparent" id="BtnToggle_Index_Work"><i class="material-icons black-text large">work</i></a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<div class="row visible" id="ProfileIndex_Profile">
+    <div class="col s12 m3">
+
+        <h4 class="text-center">Personal Details</h4>
+
+        @if (Convert.ToBoolean(Session[X.isActivatedX]))
+        {
+            <div class="card row">
+                <div class="card-content">
+                    <p class="text-center">Joined @X.TimeAge(DateTime.Now, Model.DateCreated)</p>
+                    <p class="text-center"><i class="material-icons teal-text">phone</i> <text>0</text>@Model.Contact</p>
+                    <p class="text-center"><i class="material-icons teal-text">email</i> @Model.Email</p>
+                    <p class="text-center"><i class="material-icons teal-text">info</i> @Model.Description</p>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card-panel row">
+                <h5>You must me logged in for you to see @Model.Name's personal details</h5>
+            </div>
+        }
+
+        <h4 class="text-center">Locations</h4>
+
+        @if (Convert.ToBoolean(Session[X.isActivatedX]))
+        {
+            <div class="card row">
+                <div class="card-content">
+                    @if (Model.LocationX1 != null)
+                    {
+                        <h6 class="center text-center"><u>Home Location</u></h6>
+                        <p class="text-center"><i class="material-icons teal-text">location_on</i> @Model.LocationX1.LocationStreetName , @Model.LocationX1.LocationTownCity , @Model.LocationX1.LocationProvince</p>
+                        <div class="center row card-image">
+                            <div class="card-image col l6 offset-l3 s12 waves-effect" style="height:200px;background-color:#394551;" onclick="getLocation('@Model.LocationX1.LocationLat','@Model.LocationX1.LocationLon','UserMap_@Model.AccountID')">
+                                <div style="z-index:-2;width:100%;height:100%">
+                                    <div id="UserMap_@Model.AccountID" style="width:100%;height:100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-center">We do not have @Model.Name's home Location</p>
+                    }
+
+                    <div class="divider red" style="width:100%"></div>
+
+                    @if (Model.LocationX2 != null)
+                    {
+                        <h6 class="center text-center"><u>Work Location</u></h6>
+                        <p class="text-center"><i class="material-icons teal-text">location_on</i>@Model.LocationX2.LocationStreetName , @Model.LocationX2.LocationTownCity , @Model.LocationX2.LocationProvince</p>
+                        <div class="center row card-image">
+                            <div class="card-image col l6 offset-l3 s12 waves-effect" style="height:200px;background-color:#394551;" onclick="getLocation('@Model.LocationX2.LocationLat','@Model.LocationX2.LocationLon','UserMap_@Model.AccountID')">
+                                <div style="z-index:-2;width:100%;height:100%">
+                                    <div id="UserMap_@Model.AccountID" style="width:100%;height:100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-center">We do not have @Model.Name's work Location</p>
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card-panel row">
+                <h5>You must me logged in for you to see @Model.Name's contact details</h5>
+            </div>
+        }
+
+
+        <h4 class="text-center">Company Details {@Model.Companies.Count}</h4>
+
+        @if (Model.Companies.Count < 1)
+        {
+            <div class="card-panel row">
+                <h5>@Model.Name does not have a company at the moment , stay tuned</h5>
+            </div>
+        }
+        else
+        {
+            foreach (var company in Model.Companies)
+            {
+                <div class="card-panel row">
+                    <p><label class="darken-3" style="font-size:medium">Company Name : </label> @company.CompanyName</p>
+                    <p><label class="darken-3" style="font-size:medium">Company Tel. : </label> 0<text>@company.CompanyTell</text></p>
+                    <p><label class="darken-3" style="font-size:medium">About Company : </label> @company.CompanyAbout</p>
+                    <p><label class="darken-3" style="font-size:medium">Company Website : </label> @company.CompanyWebsite</p>
+                </div>
+            }
+        }
+
+        <h4 class="text-center">Work Experience</h4>
+
+        <div class="card row">
+
+        </div>
+    </div>
+    <div class="col s12 m9">
+        <!-- profile-page-wall-share -->
+        <div id="profile-page-wall-share" class="row">
+            <div class="col s12">
+                <ul class="tabs tab-profile z-depth-1 RedBg">
+                    <li class="tab col s6">
+                        <a class="white-text waves-effect waves-light" onclick="LoadMorePosts('@Model.AccountID')" href="#MyPosts"><i class="mdi-editor-border-color"></i> My Laundry {@Model.Posts.Count}</a>
+                    </li>
+                    <li class="tab col s6">
+                        <a class="white-text waves-effect waves-light" onclick="LoadMorePendingPosts('@Model.AccountID')" href="#PendingWork"><sub><i class='material-icons'>timer</i></sub> Pending work {@Model.PostHelpers.Where(h => h.HelperAccepted != "true").ToList().Count}</a>
+                    </li>
+                </ul>
+
+                <div id="MyPosts" class="tab-content col s12">
+                    <div class="divider transparent"></div>
+                    <div id="AccountPosts" class="row grid">
+                        <div class="blog-sizer"></div>
+
+                    </div>
+                    <div class="row">
+                        <div id="LoadingPosts" class="loadingDivFather hidden">
+                            <div class="loading loadingDiv">
+                                <div class="bullet">L</div>
+                                <div class="bullet">o</div>
+                                <div class="bullet">a</div>
+                                <div class="bullet">d</div>
+                                <div class="bullet">i</div>
+                                <div class="bullet">n</div>
+                                <div class="bullet">g</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row center">
+                        <a class="btn red col s12 center waves-effect small" onclick="LoadMorePosts('@Model.AccountID')">Load More</a>
+                    </div>
+                </div>
+
+                <div id="PendingWork" class="tab-content col s12 lighten-4">
+                    <div class="row">
+                        <div id="PendingPosts" class="row grid">
+                            <div class="blog-sizer"></div>
+                            @Html.Raw(ViewBag.PendingPosts)
+                        </div>
+                        <div class="row">
+                            <div id="LoadingPendingPosts" class="loadingDivFather hidden">
+                                <div class="loading loadingDiv">
+                                    <div class="bullet">L</div>
+                                    <div class="bullet">o</div>
+                                    <div class="bullet">a</div>
+                                    <div class="bullet">d</div>
+                                    <div class="bullet">i</div>
+                                    <div class="bullet">n</div>
+                                    <div class="bullet">g</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row center">
+                            <a class="btn red col s12 center waves-effect small" onclick="LoadMorePendingPosts('@Model.AccountID')">Load More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ profile-page-wall-share -->
+    </div>
+</div>
+
+<div class="" id="ProfileIndex_Work" hidden>
+    <div class="row">
+        <div class="divider transparent"></div>
+        @foreach (var helping in Model.PostHelpers.Where(helper => helper.HelperAccepted == "true").ToList())
+        {
+            @Html.Raw(X.ConvertOrder(helping, Url, Session))
+        }
+    </div>
+</div>

@@ -1,0 +1,480 @@
+﻿@using LaundramatX.Classes
+
+@{
+    ViewBag.Title = "Send";
+}
+
+<div class="row">
+    <h2>Send Clothes</h2>
+    @*Send Chips stage 1*@
+    <div id="SendChipsDiv">
+        <div class="row">
+            <div class="col s12">
+                <div class="card-panel center">
+                    <label class="card-title center">
+                        What service do you require?
+                    </label>
+                    <p>
+                        <span class="left">
+                            <input class="with-gap WhatService" name="_What" type="radio" id="WhatServiceL" checked="checked" />
+                            <label for="WhatServiceL">Laundry</label>
+                        </span>
+                        <span class="right">
+                            <input class="with-gap WhatService" name="_What" type="radio" id="WhatServiceD" />
+                            <label for="WhatServiceD" style="font-size:small">Dry clean</label>
+                        </span>
+                    </p>
+                    <p>
+
+                    </p>
+                    <span class="center text-center">
+                        <input type="checkbox" id="SendClassified" />
+                        <label for="SendClassified">Classified</label>
+                    </span>
+                </div>
+            </div>
+            <div class="col s12" id="ClassifiedLaundry" hidden>
+                <div class="card-panel center">
+                    <label class="card-title center">
+                        Name your price
+                    </label>
+                    <div class="row center text-center">
+                        <div class="col s12 input-field">
+                            <i>R</i>
+                            <input type="number" class="BasketChip" min="0" max="999" placeholder="600" XValidatable />
+                        </div>
+                        <div class="col s12 center">
+                            <p class="small">
+                                <label>
+                                    <a href="@Url.Action("Info","Home")">
+                                        Terms & Conditions apply
+                                    </a>
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row center">
+                        <a class="btn btn-flat waves-effect RedBg white-text" id="SendClassifiedLaundry"><sup>Done</sup> <sub><i class="material-icons">send</i></sub></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12" id="ClassifiedDryClean" hidden>
+                <div class="card-panel center">
+                    <label class="card-title center">
+                        How many dry clean Items to send?
+                    </label>
+                    <div class="row center text-center">
+                        <div class="col s12 input-field">
+                            <input type="number" class="BasketChip" max="99" min="1" value="4" id="nClassifiedDryClean" />
+                        </div>
+                    </div>
+                    <div class="row center">
+                        <a class="btn btn-flat waves-effect RedBg white-text" id="SendClassifiedDryClean"><sup>Done</sup> <sub><i class="material-icons">send</i></sub></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 LaundryProperties">
+                <div class="row">
+                    <div id="LaundryItems">
+                        <div class="col s12 center">
+                            <input class="center text-center" id="SearchClothesChip" type="search" placeholder="Search" />
+                        </div>
+                        <div id="ClothesListingChips" class="chips row center text-center">
+                            <ul class="tabs ClothingTabs transparent">
+                                @foreach (var cloth in X.clothesprop)
+                                {
+                                    <li>
+                                        <a class="chip SuggestionTag center text-white lighten-3" onclick="AddToBasket(this)">
+                                            <span class="text-white text-darken-4" data-price="@cloth.Price" data-weight="@cloth.Weight">@cloth.Type</span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                            <div class="chip" hidden>
+                                <input id="SendChipList" type="text" value="+Other" />
+                                <a id="BtnChipAdd" class="btn btn-floating transparent"><i class="material-icons">add</i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 center">
+                            <div class="row card-panel">
+                                <label class="card-title">Your laundry basket</label>
+                                <div id="LaundryBasket">
+                                    <div id="SendChips" class="chips"></div>
+                                </div>
+                                <div id="SendChipsErrors" class="red-text"></div>
+                            </div>
+                        </div>
+                        <div class="col s12 center">
+                            <div class="row center">
+                                <a class="btn btn-flat waves-effect RedBg white-text" id="SendChipsBtn"><sup>Next</sup> <sub><i class="material-icons">send</i></sub></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 DrycleanProperties" hidden>
+                <div class="row" id="DryCleanItems">
+                    <div class="col s12 center">
+                        <input class="center text-center" id="" type="search" placeholder="Search" />
+                    </div>
+                    <div id="DryCleanAddedItems">
+                    </div>
+                    @for (int i = 0; i < 10; i++)
+                    {
+                        <div class="col s12 m6 l4">
+                            <div class="card _hoverable lighten-2 grey">
+                                <div class="row DryCleanItem" data-Price="@i" data-Added="false" role="button" onclick="ToggleDryCleanItem(this);">
+                                    <div class="col s3">
+                                        <img src="~/Content/img/Icons/human-male.png" style="height:100%;width:100%" />
+                                    </div>
+                                    <div class="col s6">
+                                        <h5 class="card-title center text-center">Trouser @i</h5>
+                                    </div>
+                                    <div class="col s3">
+                                        <input class="DryCleanNumber center text-center" type="number" value="0" />
+                                    </div>
+                                    <div class="col s12 DryCleanMoreInfo" hidden>
+                                        <div class="card-action darken-2">
+                                            <div class="price center text-center large">R <span class="DryCleanItemPrice">400</span></div>
+                                            <span class="right italic">SAVE 10%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="col s12 center">
+                        <div class="row center">
+                            <a class="btn btn-flat waves-effect RedBg white-text" id="BtnDryClenStep1Prv"><sup>Previous</sup> <sub><i class="material-icons">arrow_back</i></sub></a>
+                            <a class="btn btn-flat waves-effect teal white-text" id="BtnDryClenStep1"><sub>Next</sub> <sub><i class="material-icons">send</i></sub></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row hidden" id="DryCleanMapLocations">
+                    <div class="col s12 center" hidden id="DryCleanMapLoading">
+                        <div class="loadingDivFather">
+                            <div class="loading loadingDiv">
+                                <div class="bullet">L</div>
+                                <div class="bullet">o</div>
+                                <div class="bullet">a</div>
+                                <div class="bullet">d</div>
+                                <div class="bullet">i</div>
+                                <div class="bullet">n</div>
+                                <div class="bullet">g</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12" id="FakeDryCleanMapLocations">
+                        <div class="card _hoverable">
+                            <div class="card-title">
+                                The fake Map
+                            </div>
+                            <div class="card-content">
+                                <div id="DryCleanerMap">
+                                </div>
+                            </div>
+                            <div class="card-action">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12" id="RealDryCleanMapLocations">
+                        <div class="card grey _hoverable">
+                            <div class="card-title">
+                                The real Map
+                            </div>
+                            <div class="card-content">
+                                <div id="DryCleanerMap">
+                                </div>
+                            </div>
+                            <div class="card-action" id="DryCleanerList">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Send chips Selection Stage*@
+    <div class="hidden" id="SendChipsSelection">
+        <div class="row">
+            <div class="col s12">
+                <div class="row card-panel">
+                    <div class="col s12">
+                        <div class="card-panel center">
+                            <label class="card-title center">
+                                Where to do your laundry?
+                            </label>
+                            <p>
+                                <span class="left">
+                                    <input class="with-gap WhereToWash" name="_Where" type="radio" id="WhereToWashL" checked="checked" />
+                                    <label for="WhereToWashL">Laundromat</label>
+                                </span>
+                                <span class="right">
+                                    <input class="with-gap WhereToWash" name="_Where" type="radio" id="WhereToWashH" />
+                                    <label for="WhereToWashH">My Place</label>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col s6 LaundromatProperties">
+                        @for (int i = 0; i < X.LaundryProperties.Length; i++)
+                        {
+                            <p>
+                                <input type="checkbox" id="test_@i" class="LaundryProperty" checked="checked" />
+                                <label for="test_@i">@X.LaundryProperties[i]</label>
+                            </p>
+                        }
+                    </div>
+                    <div class="col s6 HomeProperties right grey lighten-3">
+                        @for (int i = 0; i < X.HomeProperties.Length; i++)
+                        {
+                            <p>
+                                <input type="checkbox" id="tes_@i" class="HomeProperty" disabled="disabled" />
+                                <label for="tes_@i">@X.HomeProperties[i]</label>
+                            </p>
+                        }
+                    </div>
+                    <div class="col s12 center">
+                        <p class="small">
+                            <label>
+                                <a href="@Url.Action("Info","Home")">
+                                    Terms & Conditions apply
+                                </a>
+                            </label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 center">
+                <div class="row center">
+                    <a class="btn btn-flat waves-effect RedBg white-text" id="SendChipsBtnSelectionPrv"><sub>Previous</sub> <sub><i class="material-icons">arrow_back</i></sub></a>
+                    <a class="btn btn-flat waves-effect teal white-text" id="SendChipsBtnSelection"><sup>Next</sup> <sub><i class="material-icons">send</i></sub></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*End Send chips Selection Stage*@
+
+    @*Send chips stage 2*@
+    <div class="hidden" id="SendChips2Div">
+
+        @*First card-panel that deals with the price*@
+        <div class="row card-panel" id="DateTimeDiv">
+            <div class="col s12">
+                <div class="row center">
+                    <div class="col s12">
+                        <label class="center" style="font-size:small"><span class="text-black">When</span> do you want your laundry back?</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m6 input-field">
+                        <input type="date" class="datepicker" id="SendDate" XValidatable />
+                        <label class="center text-center" for="SendDate">Date</label>
+                    </div>
+                    <div class="col s12 m6 input-field">
+                        <input type="time" class="timepicker" id="SendTime" XValidatable />
+                        <label class="center text-center" for="SendTime">Time</label>
+                    </div>
+                    <div class="row center">
+                        <label id="SendDateTimeError" class="red-text text-center center"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*Second card-panel that deals with where to collect the laundry*@
+        <div class="row card-panel" hidden id="WhereToCollectDiv">
+            <div class="col s12">
+                <div class="row center">
+                    <div class="col s12">
+                        <label class="center" style="font-size:small"><span class="text-black">Where</span> to collect your laundry?</label>
+                    </div>
+                </div>
+                <div class="row" id="CollectAtLoading">
+                    <div class="loadingDivFather">
+                        <div class="loading loadingDiv">
+                            <div class="bullet">L</div>
+                            <div class="bullet">o</div>
+                            <div class="bullet">a</div>
+                            <div class="bullet">d</div>
+                            <div class="bullet">i</div>
+                            <div class="bullet">n</div>
+                            <div class="bullet">g</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" hidden id="CollectAtDiv">
+                    <div class="col s4">
+                        <div class="row">
+                            <div class="col s12 flex-center">
+                                <div class="card BtnPlaceSelectionDiv" id="CollectAt_Home">
+                                    <div class="card-title center text-center">
+                                        <h5>
+                                            My Place
+                                        </h5>
+                                    </div>
+                                    <div class="card-content">
+                                        <p class="text-center"><i class="material-icons large">home</i></p>
+                                        <span class="hidden" id="CollectAt_Home_Selected"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 flex-center">
+                                <div class="card BtnPlaceSelectionDiv" id="CollectAt_Work">
+                                    <div class="card-title center text-center">
+                                        <h5>
+                                            My Work place
+                                        </h5>
+                                    </div>
+                                    <div class="card-content">
+                                        <p class="text-center"><i class="material-icons large">work</i></p>
+                                        <span class="hidden" id="CollectAt_Work_Selected"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s4" id="CollectAt_Selected">
+                        <div class="card">
+                            <div class="card-content text-center" id="CollectAt_Selected_Text">
+                                <p>
+                                    HouseNumber: None
+                                </p>
+                                <p>
+                                    StreetName: None
+                                </p>
+                                <p>
+                                    LocalName: None
+                                </p>
+                                <p>
+                                    City_TownName: None
+                                </p>
+                                <p>
+                                    Province: None
+                                </p>
+                                <p>
+                                    Country: None
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s4">
+                        <div class="card BtnPlaceSelectionDiv" id="CollectAt_Custom">
+                            <div class="card-title center text-center">
+                                <h5>
+                                    Custom
+                                </h5>
+                            </div>
+                            <div class="card-content">
+                                <div class="center text-center">
+                                    <input type="search" class="center text-center" id="CollectAt_Custom_Search" placeholder="Search place" />
+                                </div>
+                            </div>
+                            <div class="card-image waves-effect" style="height:200px;width:100%">
+                                <div id="CollectAt_Custom_Map" style="width:100%;height:100%;z-index:-1">
+                                </div>
+                                <span id="CollectAt_Custom_Selected" class="hidden">
+                                </span>
+                            </div>
+                            <div class="card-action">
+                                <p class="center text-center" id="CollectAt_Custom_Text">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*Third card-panel that deals with the due date and time*@
+        <div class="row card-panel" hidden id="SendPriceDiv">
+            <div class="col s12">
+                <div class="row center">
+                    <div class="col s12">
+                        <label class="center" style="font-size:small"><span class="text-black">How</span> much are you willing to pay?</label>
+                    </div>
+                </div>
+                <div class="center row">
+                    <p>It is advicable to put in a price at the range of R500 - R990</p>
+                    <div class="col s12 input-field">
+                        <i id="SendPriceIcon" class="prefix">R</i>
+                        <input type="number" min="0" max="999" id="SendPrice" style="width:50px" placeholder="100" XValidatable />
+                    </div>
+                    <label id="SendPriceError" class="red-text"></label>
+                </div>
+            </div>
+        </div>
+
+        @*Forth card-panel that deals with the mini description*@
+        <div class="row card-panel" hidden id="MiniDescriptionDiv">
+            <div class="col s12">
+                <div class="row center">
+                    <div class="col s12">
+                        <label class="center" style="font-size:small"><span class="text-black">The</span> first comment of your post</label>
+                    </div>
+                </div>
+                <div class="row center text-center">
+                    <div class="col s12 input-field center">
+                        <textarea type="text" placeholder="Comment here..." class="materialize-textarea center" id="SendDescription"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*Overral errors*@
+        <div class="row">
+            <div class="col s12">
+                <div class="row center">
+                    <div class="col s12">
+                        <label id="SendError" style="font-size:medium" class="red-text center"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*Send clothes button*@
+        <div class="row">
+            <div class="col s12">
+                <div class="row">
+                    <div class="col s12 input-field center">
+                        <a class="btn btn-flat waves-effect RedBg white-text" id="SendClothesSubmitPrv">Previous<sub><i class="material-icons">arrow_back</i></sub></a>
+                        <a class="btn btn-flat waves-effect teal white-text" id="SendClothesSubmit" onclick="SendClothesSubmit('@Url.Action("Send","SendX")','#SendDescription','#SendTime','#SendDate','#SendPrice','@X.GetUserID(Session[X.UserX])','@X.GetUserLocation(Session[X.UserX])')">Send<sub><i class="material-icons">send</i></sub></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*End stage 3*@
+</div>
+
+
+<div class="row">
+    <label class="text-center">Ads</label>
+    <div class="col s12">
+        <div class="card-panel">
+            <script type="text/javascript">
+                (function () {
+                    if (window.CHITIKA === undefined) { window.CHITIKA = { 'units': [] }; };
+                    var unit = { "calltype": "async[2]", "publisher": "LavheUzzie", "width": "100%", "height": 90, "sid": "Chitika Default" };
+                    var placement_id = window.CHITIKA.units.length;
+                    window.CHITIKA.units.push(unit);
+                    document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
+                }());
+            </script>
+            <script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+            <script type="text/javascript">
+                (function () {
+                    if (window.CHITIKA === undefined) { window.CHITIKA = { 'units': [] }; };
+                    var unit = { "calltype": "async[2]", "publisher": "LavheUzzie", "width": "100%", "height": 90, "sid": "Chitika Default" };
+                    var placement_id = window.CHITIKA.units.length;
+                    window.CHITIKA.units.push(unit);
+                    document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
+                }());
+            </script>
+            <script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+        </div>
+    </div>
+</div>

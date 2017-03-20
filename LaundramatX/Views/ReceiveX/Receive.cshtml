@@ -1,0 +1,83 @@
+﻿@using LaundramatX.Classes;
+@using LaundramatX.Models
+
+@{
+    ViewBag.Title = "Receive";
+}
+
+<h2>Receive</h2>
+
+<div class="row center">
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <div class="input-field">
+                    <input type="text" maxlength="50" id="SearchReceive" link="@Url.Action("SearchForPosts","ReceiveX")" placeholder="Search ..." />
+                </div>
+            </div>
+            <div class="row">
+                <div id="ReceiveSearchLoading" class="loadingDivFather" hidden>
+                    <div class="loading loadingDiv">
+                        <div class="bullet">L</div>
+                        <div class="bullet">o</div>
+                        <div class="bullet">a</div>
+                        <div class="bullet">d</div>
+                        <div class="bullet">i</div>
+                        <div class="bullet">n</div>
+                        <div class="bullet">g</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col m10 s12 center">
+
+        <div id="SearchResults" class="row grid"></div>
+
+        <div id="ReceivePosts" class="row grid">
+            <div class="blog-sizer"></div>
+        </div>
+    </div>
+    <div class="col m2 hide-on-small-only right">
+        <label>Ads</label>
+        <script type="text/javascript">
+            (function () {
+                if (window.CHITIKA === undefined) { window.CHITIKA = { 'units': [] }; };
+                var unit = { "calltype": "async[2]", "publisher": "LavheUzzie", "width": "100%", "height": 600, "sid": "Chitika Default" };
+                var placement_id = window.CHITIKA.units.length;
+                window.CHITIKA.units.push(unit);
+                document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
+            }());
+        </script>
+        <script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+        <script type="text/javascript">
+            (function () {
+                if (window.CHITIKA === undefined) { window.CHITIKA = { 'units': [] }; };
+                var unit = { "calltype": "async[2]", "publisher": "LavheUzzie", "width": "100%", "height": 600, "sid": "Chitika Default" };
+                var placement_id = window.CHITIKA.units.length;
+                window.CHITIKA.units.push(unit);
+                document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
+            }());
+        </script>
+        <script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12">
+        <div id="LoadingPosts" class="loadingDivFather hidden">
+            <div class="loading loadingDiv">
+                <div class="bullet">L</div>
+                <div class="bullet">o</div>
+                <div class="bullet">a</div>
+                <div class="bullet">d</div>
+                <div class="bullet">i</div>
+                <div class="bullet">n</div>
+                <div class="bullet">g</div>
+            </div>
+        </div>
+    </div>
+</div>

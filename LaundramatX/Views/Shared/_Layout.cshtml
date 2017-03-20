@@ -1,0 +1,215 @@
+﻿@using LaundramatX.Classes
+@{ HomePage HomeX = new HomePage();}
+<!DOCTYPE html>
+<html>
+<head @if (Convert.ToBoolean(Session[X.isActivatedX])) { <text> data-UserID=@X.GetUser(Session).AccountID</text>}>
+    <meta charset="utf-8" />
+    <meta name="theme-color" content="#F35353" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/UzzieCss")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="http://maps.google.com/maps/api/js?key=AIzaSyB-zY8aWbMYog9yrhlC31VCQM1QdYUq9hM&sensor=false&libraries=places"></script>
+</head>
+<body @ViewBag.Title>
+    @if (!Convert.ToBoolean(Session[X.isActivatedX]))
+    {
+        if (ViewBag.Title != "Home Page")
+        {
+            <div id="LogInFAB" class="fixed-action-btn" style="bottom:45px;right:24px">
+                <a class="btn btn-floating waves-effect RedBg modal-trigger XButton z-depth-4" title="Log in" href="#LogInModal"><i class="material-icons">perm_identity</i></a>
+            </div>
+        }
+        <div id="LogInModal" class="modal bottom-sheet grey lighten-2">
+            @*Field that are in the Log In Modal*@
+            <div class="modal-close circle btn btn-floating red" style="float:right"><i class="material-icons">close</i></div>
+            <div class="row left">
+                <div class="col s12">
+                    <label>Don't have an account yet? <input type="button" onclick="RedirectAction('@Url.Action(X.RegisterPage.link.Action,X.RegisterPage.link.Controller)')" value="Register" /></label>
+                </div>
+            </div>
+            <div class="row grey lighten-1"></div>
+            <div class="row center">
+                <div class="center-align">
+                    <div class="input-field col s12 small">
+                        <i id="LogInContactIcon" class="material-icons prefix text-teal">phone</i>
+                        <input id="LogInContacts" type="number" class="teal-text" placeholder="Contact Numbers" value="0" />
+                    </div>
+                </div>
+                <div class="center-align">
+                    <div class="input-field col s12 small">
+                        <i id="LogInPasswordIcon" class="material-icons prefix text-teal">lock</i>
+                        <input id="LogInPassword" type="password" class="teal-text" placeholder="Password" />
+                    </div>
+                </div>
+                <label class="col s12 red-text center-align" id="LogInErrors"></label>
+                <div class="center-align">
+                    <div id="LogInPreloader" class="loadingDivFather hidden">
+                        <div class="loading loadingDiv">
+                            <div class="bullet">L</div>
+                            <div class="bullet">o</div>
+                            <div class="bullet">a</div>
+                            <div class="bullet">d</div>
+                            <div class="bullet">i</div>
+                            <div class="bullet">n</div>
+                            <div class="bullet">g</div>
+                        </div>
+                    </div>
+                    <div class="col s12">
+                        <a style="width:100%" class="LogInSubmit btn modal-action waves-effect waves-green" onclick="LogInUser('#LogInContacts','#LogInPassword','@Url.Action("LogIn","Account")')">Log In</a>
+                    </div>
+                    <div class="center-align col s12 center">
+                        <div class="col s12 center">
+                            <label><input type="button" value="Forgot password" /></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        if (ViewBag.Title == "Send")
+        {
+            @*This is to display the estimated price for the current send Clothes session*@
+            <div style="bottom:40px;right:50%">
+                <div class="fixed-action-btn">
+                    <div class="RedBg chip"><label> R <span id="EstimatedSendPrice">0</span></label> <a class="btn btn-floating btn-flat transparent waves-effect"><i class="material-icons">info_outline</i></a></div>
+                </div>
+            </div>
+        }
+        else if (ViewBag.Title == "Home Page")
+        {
+        }
+        else
+        {
+            @*This is the floating button for logged in users to send clothes*@
+            <div style="bottom:45px;right:48px">
+                <div class="fixed-action-btn">
+                    <a class="btn btn-floating waves-effect RedBg XButton" onclick="RedirectAction('@Url.Action(X.ReceivePage.link.Action,X.ReceivePage.link.Controller)')"><i class="material-icons">shopping_cart</i></a>
+                </div>
+            </div>
+        }
+    }
+
+    <div id="body">
+        @if (ViewBag.Title == "Home Page")
+        {
+            @RenderSection("SlideShow", false)
+        }
+        else
+        {
+            <nav class="navbar navbar-fixed-top navbar-static-top" style="background-color:#F35353">
+                <div class="nav-wrapper">
+                    <div id="NavTitleX" class="brand-logo center waves-effect hide-on-small-only">
+                        <a href="@Url.Action("Index","Home")"><img style="height:80px" src="~/Content/img/Logo/Logo_white.png" /></a>
+                    </div>
+                    <a class="brand-logo left hide-on-med-and-up waves-effect circle" href="@Url.Action("Index","Home")"><i class="material-icons">home</i></a>
+                    <a class="button-collapse left rounded waves-effect hide-on-small-and-down show-on-medium-and-up" id="menuBtn" data-activates="SideNavigation"><i class="material-icons">menu</i></a>
+                    <div class="right">
+                        <ul>
+                            @if (Convert.ToBoolean(Session[X.isActivatedX]))
+                            {
+                                <li>
+                                    <span class="notification-badge" id="notifications-count"></span>
+                                    <a class="waves-effect dropdown-button tooltipped" data-beloworigin="true" data-constrainWidth="true" data-alignment="right" data-stoppropagation="false" role="button" onclick="GetAllNotifications('@X.GetUser(Session).AccountID')" data-position="bottom" data-tooltip="Notifications" data-activates="notification-dropdown"><i class="material-icons">notifications</i></a>
+                                    <div id="notification-dropdown" class="dropdown-content row">
+                                        <div class="col s12 row" id="notification_List">
+
+                                        </div>
+                                        <div class="col s12 center">
+                                            <a class="btn btn-flat" href="@Url.Action("notifications","notify")">All notifications</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="hide-on-small-and-down"><a class="tooltipped waves-effect" onclick="RedirectAction('@Url.Action(X.ReceivePage.link.Action, X.ReceivePage.link.Controller)')" data-position="bottom" data-tooltip="Receive"><i class="material-icons">@X.ReceivePage.icon</i></a></li>
+                            }
+                            else
+                            {
+                                <li><a class="tooltipped waves-effect" onclick="RedirectAction('@Url.Action(X.ReceivePage.link.Action, X.ReceivePage.link.Controller)')" data-position="bottom" data-tooltip="Receive"><i class="material-icons">@X.ReceivePage.icon</i></a></li>
+                            }
+
+                            <li><a class="tooltipped waves-effect waves-teal" onclick="RedirectAction('@Url.Action(X.SendPage.link.Action, X.SendPage.link.Controller)')" data-position="bottom" data-tooltip="Send"><i class="material-icons">@X.SendPage.icon</i></a></li>
+
+                            @if (Convert.ToBoolean(Session[X.isActivatedX]))
+                            {
+                                <li>
+                                    <a class="waves-effect dropdown-button tooltipped" data-beloworigin="true" data-constrainWidth="true" data-alignment="right" data-stoppropagation="false" data-position="bottom" data-tooltip="Profile" data-activates="profile-dropdown">
+                                        <i class="material-icons">account_circle</i>
+                                    </a>
+                                    <ul id="profile-dropdown" class="dropdown-content">
+                                        <li data-position="left" data-tooltip="View your profile" class="tooltipped">
+                                            <a class="waves-effect waves-ripple waves-teal black-text" href="@Url.Action("Index", "Account", new { userID = X.GetUserID(Session[X.UserX])})">View</a>
+                                        </li>
+                                        <li data-position="left" data-tooltip="Edit your profile" class="tooltipped">
+                                            <a class="waves-effect waves-ripple waves-teal" href="@Url.Action("Profile", "Account")">Edit</a>
+                                        </li>
+                                        <li class="divider black"></li>
+                                        <li data-position="left" data-tooltip="Pending laundry" class="tooltipped">
+                                            <a class="waves-effect waves-ripple waves-teal" href="@Url.Action("c","Notify")">Orders</a>
+                                        </li>
+                                        <li data-position="left" data-tooltip="Log out" class="tooltipped">
+                                            <a class="waves-effect waves-ripple waves-teal" onclick="RedirectAction('@Url.Action("LogOutUser", "Account")')"><i class="material-icons">exit_to_app</i> Log Out</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <ul class="side-nav Trans06X" id="SideNavigation">
+                        <li id="HideNavX"class="row">
+                            <div class="col s6 hide-on-med-and-up">
+                                <a href="@Url.Action("info","Home")"><img style="height:60px" src="~/Content/img/Logo/Logo_white.png" /></a>
+                            </div>
+                            <div class="btn waves-effect red circle btn-floating btn-large" style="float:right" onclick="{$('.button-collapse').sideNav('hide');}">
+                                <i class="material-icons">arrow_back</i>
+                            </div>
+                        </li>
+                        <li><div class="subheader"><div class="divider black"></div></div></li>
+                        <li><div class="subheader center black-text"><u>Search</u></div></li>
+                        <li><div class="subheader"></div></li>
+                        <li>
+                            <div class="black-center center ">
+                                <div class="col s8 center cntr-innr">
+                                    <label class="search center" for="SearchSideNav">
+                                        <input class="inpt_search center" link="@Url.Action("Search","Home")" id="SearchSideNav" type="search" />
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="center text-center">
+                                <div class="row center transparent black-text input-field">
+                                    <div class="center text-center btn btn-floating btn-large transparent waves-effect" onclick="SearchFor('#SearchSideNav')"><i class="material-icons">send</i></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li><div class="subheader"><div class="divider black"></div></div></li>
+                        <li><div class="subheader center black-text"><u>Explore</u></div></li>
+                        <li><div class="SideNavXBG"></div></li>
+                        </ul>
+                    </div>
+                </nav>
+        }
+        <div class="black-text text-darken-4">
+            @RenderBody()
+        </div>
+        <hr width="100%" />
+        <div id="FooterX" class="red">
+            <footer class="page-footer grey lighten-3 text-darken-3 z-depth-3">
+                <div class="footer-copyright red-text">
+                    <span class="left"> Created by <a href="http://www.uzzie.xyz">Sirwali Uzzie</a></span>
+                    <span class="right"> &copy; @DateTime.Now.Year Copyright : <a href="@Url.Action("Info","Home")">LaundromatX</a></span>
+                </div>
+            </footer>
+        </div>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/Addons")
+        @Scripts.Render("~/bundles/UzzieScripts")
+        @RenderSection("scripts", required: false)
+    </div>
+</body>
+</html>
