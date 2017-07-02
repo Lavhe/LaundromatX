@@ -51,7 +51,7 @@ namespace LaundramatX.Classes
 
     public static class X
     {
-        //This is method is used to format the dateTime in the way i want (*_*) very safe
+        //This method is used to format the dateTime in the way i want (*_*) very safe
         public static string FormatDateTime(DateTime datetime)
         {
 

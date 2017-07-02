@@ -14,6 +14,7 @@
     <script src="http://maps.google.com/maps/api/js?key=AIzaSyB-zY8aWbMYog9yrhlC31VCQM1QdYUq9hM&sensor=false&libraries=places"></script>
 </head>
 <body @ViewBag.Title>
+    <span id="rootDir" class="hidden">@Url.Content("~/")</span>
     @if (!Convert.ToBoolean(Session[X.isActivatedX]))
     {
         if (ViewBag.Title != "Home Page")
@@ -93,7 +94,6 @@
             </div>
         }
     }
-
     <div id="body">
         @if (ViewBag.Title == "Home Page")
         {
@@ -159,7 +159,7 @@
                         </ul>
                     </div>
                     <ul class="side-nav Trans06X" id="SideNavigation">
-                        <li id="HideNavX"class="row">
+                        <li id="HideNavX" class="row">
                             <div class="col s6 hide-on-med-and-up">
                                 <a href="@Url.Action("info","Home")"><img style="height:60px" src="~/Content/img/Logo/Logo_white.png" /></a>
                             </div>
@@ -189,9 +189,9 @@
                         <li><div class="subheader"><div class="divider black"></div></div></li>
                         <li><div class="subheader center black-text"><u>Explore</u></div></li>
                         <li><div class="SideNavXBG"></div></li>
-                        </ul>
-                    </div>
-                </nav>
+                    </ul>
+                </div>
+            </nav>
         }
         <div class="black-text text-darken-4">
             @RenderBody()

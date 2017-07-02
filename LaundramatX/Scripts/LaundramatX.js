@@ -42,6 +42,8 @@ var Edit_Company_Location = {
     Province: 'None',
     Country: 'None'
 };
+//The most important variable (Used to map the root).
+var rootPath = $('#rootDir').html();
 $(window).scroll(function (e) {
     //Make sure we are at the RECIEVE PAGE
     if (($("body[receive]").html() != undefined) && !isin) {
@@ -51,7 +53,7 @@ $(window).scroll(function (e) {
             var index = $('.ThePost').toArray().length;
             isin = true;
             $.ajax({
-                url: '/LaundromatX/ReceiveX/getMorePosts?index=' + index,
+                url: rootPath + 'ReceiveX/getMorePosts?index=' + index,
                 contentType: 'json',
                 success: function (answer) {
                     var result = JSON.parse(answer);
@@ -139,7 +141,7 @@ function getLatLong() {
                         //Call this major ajax if we have everything
                         $.ajax({
                             method: "POST",
-                            url: "/LaundromatX/Account/SetLocation/?lat=" + lat + "&lon=" + lon + "&Country=" + XLocation['Country'] + "&Province=" + XLocation['Province'] + "&City_TownName=" + XLocation['City_TownName'] + "&LocalName=" + XLocation['LocalName'] + "&StreetName=" + XLocation['StreetName'] + "&HouseNumber=" + XLocation['HouseNumber'] + "&Which=current",
+                            url: rootPath + "Account/SetLocation/?lat=" + lat + "&lon=" + lon + "&Country=" + XLocation['Country'] + "&Province=" + XLocation['Province'] + "&City_TownName=" + XLocation['City_TownName'] + "&LocalName=" + XLocation['LocalName'] + "&StreetName=" + XLocation['StreetName'] + "&HouseNumber=" + XLocation['HouseNumber'] + "&Which=current",
                             success: function (result) {
                                 if (result == "Done") {
                                     var $ToastMessage = $('<span>Great we got your location ,THANK YOU</span>');
@@ -162,7 +164,7 @@ function getLatLong() {
                     //Call this mini ajax if we fail to read the state country and city
                     $.ajax({
                         method: "POST",
-                        url: "/LaundromatX/Account/SetLocation/?lat=" + lat + "&lon=" + lon + "&Which=current",
+                        url: rootPath + "Account/SetLocation/?lat=" + lat + "&lon=" + lon + "&Which=current",
                         success: function (result) {
                             if (result === "Done") {
                                 var $ToastMessage = $('<span>Great we got your location ,THANK YOU</span>');
@@ -570,7 +572,7 @@ $(document).ready(function () {
             window.location.href = '/home/index';
         }
         $.ajax({
-            url: '/LaundromatX/SendX/GetUserLocations?UserID=' + UserID,
+            url: rootPath + 'SendX/GetUserLocations?UserID=' + UserID,
             success: function (answer) {
                 var result = JSON.parse(answer);
                 if (result[0] != "No Location") {
@@ -721,7 +723,7 @@ $(document).ready(function () {
         if (!isNaN(UserID)) {
             $.ajax({
                 method: "POST",
-                url: '/LaundromatX/Notify/GetNotifications?UserID=' + UserID + '&All=' + true + '&inDetail=' + true,
+                url: rootPath + 'Notify/GetNotifications?UserID=' + UserID + '&All=' + true + '&inDetail=' + true,
                 success: function (result) {
                     var notifications = JSON.parse(result);
                     $('#notifications').html(notifications);
@@ -890,7 +892,7 @@ $(document).ready(function () {
                 $('#CollectAtDiv').hide('slow');
                 $('#CollectAtLoading').show('fast');
                 $.ajax({
-                    url: '/LaundromatX/SendX/GetUserLocations?UserID=' + UserID,
+                    url: rootPath + 'SendX/GetUserLocations?UserID=' + UserID,
                     success: function (answer) {
                         var result = JSON.parse(answer);
                         if (result[0] != "No Location") {
@@ -1157,7 +1159,7 @@ $(document).ready(function () {
             });
             var helpID = +$(parent).attr('data-helpID');
             $.ajax({
-                url: '/LaundromatX/Notify/MoveStatus?PostHelpID=' + helpID + '&OrderID=' + OrderID,
+                url: rootPath + 'Notify/MoveStatus?PostHelpID=' + helpID + '&OrderID=' + OrderID,
                 success: function (result) {
                     alert(result);
                 }
@@ -1211,7 +1213,7 @@ $(document).ready(function () {
         //Dry clean Staff step 2
         $('#BtnDryClenStep1').click(function (e) {
             $.ajax({
-                url: '/LaundromatX/SendX/GetClosestDryCleaners',
+                url: rootPath + 'SendX/GetClosestDryCleaners',
                 success: function (answer) {
                     if (answer == 'false') {
                         $('#RealDryCleanMapLocations').hide('slow');
@@ -1347,7 +1349,7 @@ function CloseRevealModal(RevealID) {
 //This method goes to c# and collect all the ratings of each admin and puts them to the stars
 function GetAllStars(UserID) {
     $.ajax({
-        url: '/LaundromatX/Admin/GetAllStars?UserID=' + UserID,
+        url: rootPath + 'Admin/GetAllStars?UserID=' + UserID,
         success: function (result) {
             $(document).imagesLoaded(function () {
                 $('.rateUser_' + UserID + "[value=" + result + "]").prop('checked', true);
@@ -1380,7 +1382,7 @@ function RateUser(userID, rateValue, raterID, link, target) {
 //Ths function is used to go and collect the items after the user click on THE price
 function GetAllClothes(postID) {
     $.ajax({
-        url: '/LaundromatX/ReceiveX/GetAllClothes?PostID=' + postID,
+        url: rootPath + 'ReceiveX/GetAllClothes?PostID=' + postID,
         success: function (result) {
             var clothes = JSON.parse(result);
             $('#ClothingList_' + postID).html(clothes);
@@ -1392,7 +1394,7 @@ function getAllComments(postID, numComments) {
     //Start the loading animation
     $('.ModalLoading').removeClass('hidden');
     $.ajax({
-        url: '/LaundromatX/ReceiveX/GetAllComments?PostID=' + postID,
+        url: rootPath + 'ReceiveX/GetAllComments?PostID=' + postID,
         success: function (result) {
             AnimateDiv('.ModalLoading', '#Comments_' + postID);
             $('.ModalLoading').addClass('hidden');
@@ -1450,7 +1452,7 @@ function getAllComments(postID, numComments) {
 function AddWasherList(postID, washerID, washmessage) {
     DismissToasts();
     $.ajax({
-        url: '/LaundromatX/ReceiveX/AddWasher?PostID=' + postID + '&washerID=' + washerID + '&washerMessage=' + washmessage,
+        url: rootPath + 'ReceiveX/AddWasher?PostID=' + postID + '&washerID=' + washerID + '&washerMessage=' + washmessage,
         success: function (result) {
             if (result != "Done") {
                 //This person is trying to help himself or already in the queue to help wash this
@@ -1479,7 +1481,7 @@ function getAllHelpers(postID, numHelpers) {
     //Start the loading animation
     $('.ModalHelpersLoading').removeClass('hidden');
     $.ajax({
-        url: '/LaundromatX/ReceiveX/GetAllHelpers?PostID=' + postID,
+        url: rootPath + 'ReceiveX/GetAllHelpers?PostID=' + postID,
         success: function (result) {
             if (result == "No Helpers") {
                 var $ToastMessage = $('<span>This post does not have helpers , be the first one to bid</span>');
@@ -1677,7 +1679,7 @@ function EditSaveChanges(CardType, UserID) {
         }
         $.ajax({
             type: 'POST',
-            url: "/LaundromatX/Account/EditPersonal?UserID=" + UserID + "&Name=" + Name + "&Surname=" + Surname + "&Email=" + Email + "&Age=" + Age + "&Desc=" + Desc,
+            url: rootPath + "Account/EditPersonal?UserID=" + UserID + "&Name=" + Name + "&Surname=" + Surname + "&Email=" + Email + "&Age=" + Age + "&Desc=" + Desc,
             success: function (result) {
                 $('#EditPersonalPreloader').addClass("hidden");
                 $("#EditPersonalErrors").html("Changes saved").addClass("teal-text");
@@ -1688,10 +1690,10 @@ function EditSaveChanges(CardType, UserID) {
     else if (CardType == 'homelocation') {
         $.ajax({
             method: "POST",
-            url: "/LaundromatX/Account/SetLocation/?lat=" + Edit_Home_Location['lat'] + "&lon=" + Edit_Home_Location['lon'] + "&Country=" + Edit_Home_Location['Country'] + "&Province=" + Edit_Home_Location['Province'] + "&City_TownName=" + Edit_Home_Location['City_TownName'] + "&LocalName=" + Edit_Home_Location['LocalName'] + "&StreetName=" + Edit_Home_Location['StreetName'] + "&HouseNumber=" + Edit_Home_Location['HouseNumber'] + "&Which=home",
+            url: rootPath + "Account/SetLocation/?lat=" + Edit_Home_Location['lat'] + "&lon=" + Edit_Home_Location['lon'] + "&Country=" + Edit_Home_Location['Country'] + "&Province=" + Edit_Home_Location['Province'] + "&City_TownName=" + Edit_Home_Location['City_TownName'] + "&LocalName=" + Edit_Home_Location['LocalName'] + "&StreetName=" + Edit_Home_Location['StreetName'] + "&HouseNumber=" + Edit_Home_Location['HouseNumber'] + "&Which=home",
             success: function (result) {
                 $.ajax({
-                    url: '/LaundromatX/SendX/GetUserLocations?UserID=' + UserID,
+                    url: rootPath + 'SendX/GetUserLocations?UserID=' + UserID,
                     success: function (answer) {
                         var result = JSON.parse(answer);
                         if (result[0] != "No Location") {
@@ -1716,10 +1718,10 @@ function EditSaveChanges(CardType, UserID) {
     else if (CardType == 'worklocation') {
         $.ajax({
             method: "POST",
-            url: "/LaundromatX/Account/SetLocation/?lat=" + Edit_Work_Location['lat'] + "&lon=" + Edit_Work_Location['lon'] + "&Country=" + Edit_Work_Location['Country'] + "&Province=" + Edit_Work_Location['Province'] + "&City_TownName=" + Edit_Work_Location['City_TownName'] + "&LocalName=" + Edit_Work_Location['LocalName'] + "&StreetName=" + Edit_Work_Location['StreetName'] + "&HouseNumber=" + Edit_Work_Location['HouseNumber'] + "&Which=work",
+            url: rootPath + "Account/SetLocation/?lat=" + Edit_Work_Location['lat'] + "&lon=" + Edit_Work_Location['lon'] + "&Country=" + Edit_Work_Location['Country'] + "&Province=" + Edit_Work_Location['Province'] + "&City_TownName=" + Edit_Work_Location['City_TownName'] + "&LocalName=" + Edit_Work_Location['LocalName'] + "&StreetName=" + Edit_Work_Location['StreetName'] + "&HouseNumber=" + Edit_Work_Location['HouseNumber'] + "&Which=work",
             success: function (result) {
                 $.ajax({
-                    url: '/LaundromatX/SendX/GetUserLocations?UserID=' + UserID,
+                    url: rootPath + 'SendX/GetUserLocations?UserID=' + UserID,
                     success: function (answer) {
                         var result = JSON.parse(answer);
                         if (result[0] != "No Location") {
@@ -1766,7 +1768,7 @@ function EditSaveChanges(CardType, UserID) {
         //This is for users with companies
         $.ajax({
             type: 'POST',
-            url: "/LaundromatX/Account/EditAddCompany?UserID=" + UserID + "&CompanyName=" + CompanyName + "&CompanyAddress=" + CompanyAddress + "&CompanyWapsite=" + CompanyWapsite + "&CompanyAbout=" + CompanyAbout + "&CompanyTell=" + CompanyTell,
+            url: rootPath + "Account/EditAddCompany?UserID=" + UserID + "&CompanyName=" + CompanyName + "&CompanyAddress=" + CompanyAddress + "&CompanyWapsite=" + CompanyWapsite + "&CompanyAbout=" + CompanyAbout + "&CompanyTell=" + CompanyTell,
             success: function (result) {
                 $('#EditProfilePreloader').addClass("hidden");
                 if (result == "Done") {
@@ -2019,7 +2021,7 @@ function RemoveHelper(helperID) {
     DismissToasts();
     $.ajax({
         method: "POST",
-        url: '/LaundromatX/ReceiveX/RemoveHelper?helperID=' + helperID,
+        url: rootPath + 'ReceiveX/RemoveHelper?helperID=' + helperID,
         success: function (result) {
             if (result == "done") {
                 var POSTID = $("#PostHelperLI_" + helperID + "").attr("data-postID");
@@ -2041,7 +2043,7 @@ function AcceptHelper(helperID) {
     DismissToasts();
     $.ajax({
         method: "POST",
-        url: '/LaundromatX/ReceiveX/AcceptHelper?helperID=' + helperID,
+        url: rootPath + 'ReceiveX/AcceptHelper?helperID=' + helperID,
         success: function (result) {
             console.log(result);
         }
@@ -2054,7 +2056,7 @@ function GetAllNotifications(UserID) {
     }
     $.ajax({
         method: "POST",
-        url: '/LaundromatX/Notify/GetNotifications?UserID=' + UserID,
+        url: rootPath + 'Notify/GetNotifications?UserID=' + UserID,
         success: function (result) {
             var notifications = JSON.parse(result);
             $('#notification_List').html(notifications);
@@ -2070,14 +2072,14 @@ function PerformNotifcationSeen(NotifyID, self) {
         }
         $.ajax({
             method: "POST",
-            url: '/LaundromatX/Notify/NotificationSeen?NotifyID=' + NotifyID,
+            url: rootPath + 'Notify/NotificationSeen?NotifyID=' + NotifyID,
             success: function (result) {
                 $(".NotificationLi#NotificationLi_" + NotifyID).hide('slow');
                 CheckNotifications();
                 var ID = +$(self).attr('data-ID');
                 var ref = $(self).attr('data-RefName');
                 if (!isNaN(ID)) {
-                    window.location.href = "/LaundromatX/Notify/b?ID=" + ID + "&UserID=" + UserID + "&Type=" + ref;
+                    window.location.href = rootPath + "Notify/b?ID=" + ID + "&UserID=" + UserID + "&Type=" + ref;
                 }
             }
         });
@@ -2094,7 +2096,7 @@ function CheckNotifications() {
     if (!isNaN(UserID)) {
         $.ajax({
             method: "POST",
-            url: '/LaundromatX/Notify/NotificationsCount?UserID=' + UserID,
+            url: rootPath + 'Notify/NotificationsCount?UserID=' + UserID,
             success: function (total) {
                 var count = +total;
                 if (($("body[home]").html() != undefined)) {
@@ -2124,7 +2126,7 @@ function LoadMorePosts(userID) {
     var index = $('.ThePost').toArray().length;
     $('#LoadingPosts').removeClass('hidden');
     $.ajax({
-        url: '/LaundromatX/Account/LoadMorePosts?userID=' + userID + '&index=' + index,
+        url: rootPath + 'Account/LoadMorePosts?userID=' + userID + '&index=' + index,
         success: function (answer) {
             var i = 0;
             var result = JSON.parse(answer);
@@ -2157,7 +2159,7 @@ function LoadMorePendingPosts(userID) {
     var index = $('.ThePost').toArray().length;
     $('#LoadingPendingPosts').removeClass('hidden');
     $.ajax({
-        url: '/LaundromatX/Account/LoadMorePendingPosts?userID=' + userID + '&index=' + index,
+        url: rootPath + 'Account/LoadMorePendingPosts?userID=' + userID + '&index=' + index,
         success: function (answer) {
             var i = 0;
             var result = JSON.parse(answer);
@@ -2195,7 +2197,7 @@ function Chat_SendMessage(that, HelpID, RecieverID, SenderID) {
     }
     else {
         $.ajax({
-            url: '/LaundromatX/Notify/SendMessage?HelpID=' + HelpID + '&SenderID=' + SenderID + '&ReceiverID=' + RecieverID + '&msg=' + msg,
+            url: rootPath + 'Notify/SendMessage?HelpID=' + HelpID + '&SenderID=' + SenderID + '&ReceiverID=' + RecieverID + '&msg=' + msg,
             success: function (result) {
                 $('.OrderChat').append("\n                          <div class='card-panel RightChat col s7 right grey lighten-4'>\n                          <p>\n                                " + msg + "\n                          </p>\n                          <span class='small blue-text'>now</span>\n                </div>\n                ");
             }
@@ -2205,7 +2207,7 @@ function Chat_SendMessage(that, HelpID, RecieverID, SenderID) {
 function LoadOrder(that, helpID) {
     if (!isNaN(+helpID)) {
         $.ajax({
-            url: '/LaundromatX/notify/LoadOrder?helpID=' + helpID,
+            url: rootPath + 'notify/LoadOrder?helpID=' + helpID,
             success: function (result) {
                 $('.BtnLoadOrder').removeClass('z-depth-3');
                 $(that).addClass('z-depth-3');

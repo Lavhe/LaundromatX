@@ -25,10 +25,10 @@ namespace LaundramatX
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/UzzieScripts").Include(
-                "~/Scripts/materialize.clockpicker.js",
-                "~/Scripts/typer.js",
-                "~/Scripts/plugins/croppie.min.js",
-            "~/Scripts/LaundramatX.js"));
+                 "~/Scripts/materialize.clockpicker.js",
+                 "~/Scripts/typer.js",
+                 "~/Scripts/plugins/croppie.min.js",
+                 "~/Scripts/LaundramatX.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/Addons").Include(
                 "~/Scripts/materialize.js",
@@ -41,7 +41,7 @@ namespace LaundramatX
                 "~/Scripts/Addons/7jquery.sparkline.min.js",
                 "~/Scripts/Addons/8sparkline-script.js",
                 "~/Scripts/Addons/12plugins.min.js"
-    ));
+            ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css",
@@ -59,7 +59,7 @@ namespace LaundramatX
                 "~/Content/Addons/6jquery-jvectormap.css",
                 "~/Content/Addons/7prism.css"
                 ));
-            
+
         }
     }
 }
