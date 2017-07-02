@@ -168,9 +168,6 @@ p {
         width: 50%;
         left: 25%;
     }
-
-    .LaundromatProfile {
-    }
 }
 
 /*small screen*/
@@ -922,18 +919,15 @@ a[href^="https://maps.google.com/maps"] {
 
 /*Notification drawer customize*/
 
-.NotifyItem {
+.NotifyItem .NotifyIcon {
+    padding-top: 10px;
+    padding-left: 1px;
+    padding-right: 20px;
 }
 
-    .NotifyItem .NotifyIcon {
-        padding-top: 10px;
-        padding-left: 1px;
-        padding-right: 20px;
-    }
-
-    .NotifyItem .NotifyMsg {
-        margin-bottom: -20px;
-    }
+.NotifyItem .NotifyMsg {
+    margin-bottom: -20px;
+}
 
 
 .NotificationLi {
@@ -997,7 +991,7 @@ a[href^="https://maps.google.com/maps"] {
 }
 
 .OrderSidePanel2 {
-    width:100%;
+    width: 100%;
     overflow-x: scroll;
 }
 /*END CUSTOM CHAT BUBBLES*/

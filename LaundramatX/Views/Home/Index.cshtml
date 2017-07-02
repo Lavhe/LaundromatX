@@ -14,7 +14,7 @@
                         <div class="right">
                             <div class="horizontal toolbar click-to-toggle">
                                 <a class="btn btn-large btn-floating transparent waves-effect z-depth-4">
-                                    <img src="@X.GetUser(Session).ProfilePic" style="width:100%;height:100%" />
+                                    <img src="@X.getRootDir(Url) + @X.GetUser(Session).ProfilePic" style="width:100%;height:100%" />
                                 </a>
                                 <ul>
                                     <li>
@@ -71,7 +71,7 @@
                 </span>
                 <span class="cursor" data-cursorDisplay="_" data-owner="DetailAboutX"></span>
                 <p></p>
-                <a class="modal-trigger XSmallButton small" onclick="{$('#VideoHiveImg').attr('src', '/LaundromatX/Content/img/LaundromatX_Videohive.gif')}" style="font-size:20px" href="#VideoHiveModal">Videohive</a>
+                <a class="modal-trigger XSmallButton small" onclick="{$('#VideoHiveImg').attr('src','@X.getRootDir(Url)Content/img/LaundromatX_Videohive.gif')}" style="font-size:20px" href="#VideoHiveModal">Videohive</a>
                 <div id="VideoHiveModal" class="modal">
                     <div class="modal-close circle btn btn-floating red" style="float:right"><i class="material-icons">close</i></div>
                     <div class="card" style="width:100%">
@@ -94,7 +94,7 @@
                 <div class="right">
                     <div class="horizontal toolbar click-to-toggle">
                         <a class="btn btn-large btn-floating transparent waves-effect z-depth-4">
-                            <img src="@X.GetUser(Session).ProfilePic" style="width:100%;height:100%" />
+                            <img src="@X.getRootDir(Url) + @X.GetUser(Session).ProfilePic" style="width:100%;height:100%" />
                         </a>
                         <ul class="inline">
                             <li>

@@ -160,7 +160,7 @@ namespace LaundramatX.Controllers
                             {
                                 var commenter = Convert.ToInt32(e.From);
                                 var victim = LaundromatX.Accounts.Where(acc => acc.AccountID == commenter).First();
-                                Notifications.Add(X.ConvertNotification(e, victim, inDetail));
+                                Notifications.Add(X.ConvertNotification(e,Url, victim, inDetail));
                             }
                             catch (Exception ex)
                             {
@@ -169,7 +169,7 @@ namespace LaundramatX.Controllers
                         }
                         else
                         {
-                            Notifications.Add(X.ConvertNotification(e, inDetail: inDetail));
+                            Notifications.Add(X.ConvertNotification(e,Url, inDetail: inDetail));
                         }
                     });
                 }
@@ -183,7 +183,7 @@ namespace LaundramatX.Controllers
                             {
                                 var commenter = Convert.ToInt32(e.From);
                                 var victim = LaundromatX.Accounts.Where(acc => acc.AccountID == commenter).First();
-                                Notifications.Add(X.ConvertNotification(e, victim));
+                                Notifications.Add(X.ConvertNotification(e,Url, victim));
                             }
                             catch (Exception ex)
                             {
@@ -192,7 +192,7 @@ namespace LaundramatX.Controllers
                         }
                         else
                         {
-                            Notifications.Add(X.ConvertNotification(e));
+                            Notifications.Add(X.ConvertNotification(e,Url));
                         }
                     });
                 }

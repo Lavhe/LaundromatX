@@ -155,7 +155,7 @@ namespace LaundramatX.Controllers
 
                 Comment c = comment;
 
-                return X.ConvertComment(c);
+                return X.ConvertComment(c,Url);
             }
             catch (Exception ex)
             {
@@ -171,7 +171,7 @@ namespace LaundramatX.Controllers
             //Take the comments convert them and store them in the above array
             LaundromatX.Comments.Where(comment => comment.PostID == PostID).ToList().ForEach((e) =>
             {
-                comments.Add(X.ConvertComment(e));
+                comments.Add(X.ConvertComment(e,Url));
             });
 
             //Check if we have any comments
@@ -297,7 +297,7 @@ namespace LaundramatX.Controllers
 
             LaundromatX.PostHelpers.Where(helper => helper.PostID == PostID).ToList().ForEach((e) =>
             {
-                helpers.Add(X.ConvertHelper(e, Session));
+                helpers.Add(X.ConvertHelper(e, Session,Url));
             });
 
             if (helpers.Count < 1)

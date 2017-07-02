@@ -160,7 +160,7 @@
                                 @using (Html.BeginForm("ChangeProfilePic", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
                                     <div class="waves-effect waves-teal col s12 m6">
-                                        <img name="EditProfilePicImg" id="EditProfilePicImg" src="@Model.ProfilePic" style="width:200px;height:200px" alt="Your profile pic will appear here Just click on 'Set'                    then you are done .. THANK YOU" />
+                                        <img name="EditProfilePicImg" id="EditProfilePicImg" src="@X.getRootDir(Url) + @Model.ProfilePic" style="width:200px;height:200px" alt="Your profile pic will appear here Just click on 'Set'                    then you are done .. THANK YOU" />
                                         <input id="EditProfilePic" name="EditProfilePic" accept="image/gif, image/jpeg, image/png" class="input validate" type="file" XValidatable />
                                     </div>
                                     <div class="file-path-wrapper col s12 m6">

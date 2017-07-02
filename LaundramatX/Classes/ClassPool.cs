@@ -51,6 +51,10 @@ namespace LaundramatX.Classes
 
     public static class X
     {
+        public static string getRootDir(UrlHelper url) {
+            return url.Content("~/");
+        }
+
         //This method is used to format the dateTime in the way i want (*_*) very safe
         public static string FormatDateTime(DateTime datetime)
         {
@@ -167,7 +171,7 @@ namespace LaundramatX.Classes
                 User = (Account)session[X.UserX];
 
                 CommentSection = "<div class='collection-item center'>" +
-                 $"<img style='width:50px;height:50px' src='{User.ProfilePic}' alt='' class='circle profile-image prefix'>" +
+                 $"<img style='width:50px;height:50px' src='{getRootDir(Url) + User.ProfilePic}' alt='' class='circle profile-image prefix'>" +
                  "<input class='CommentOnPostInput' type='text' style='width:50%'>" +
                  "<a class='CommentOnPost btn btn-floating waves-effect waves-circle' data-userID='" + User.AccountID + "' data-postID='" + post.PostID + "' data-link='" + Url.Action("PerformComment", "ReceiveX") + "'><i class='material-icons'>send</i></a>" +
                  "</div>";
@@ -207,7 +211,7 @@ namespace LaundramatX.Classes
                 "<div class='card hoverable'>" +
                     "<div class='row RecievePostHeader'>" +
                         "<div class='col s2 left text-left'>" +
-                            $"<i class='left'><img data-caption='{post.Account.Description}' class='circle z-depth-2 materialboxed' src='{post.Account.ProfilePic}' alt='Profile Pic'></i>" +
+                            $"<i class='left'><img data-caption='{post.Account.Description}' class='circle z-depth-2 materialboxed' src='{getRootDir(Url) + post.Account.ProfilePic}' alt='Profile Pic'></i>" +
                         "</div><div class='col s6 center text-center'>" +
                             "<a class='card-title PosterName' onclick=\"RedirectAction('" + Url.Action("Index", "Account", new { userID = post.Account.AccountID }) + "')\">" + post.Account.Name + "</a>" +
                         "</div><div class='col s4 right text-right'>" +
@@ -366,7 +370,7 @@ namespace LaundramatX.Classes
             "<div class='card'>" +
                 "<h6 class='card-title center text-center grey-text text-darken-4'>" + person.Name + "</h6>" +
                 "<div class='card-image waves-effect LaundromatProfile'>" +
-                    $"<img src='{person.ProfilePic}'>" +
+                    $"<img src='{getRootDir(Url) + person.ProfilePic}'>" +
                 "</div>" +
                 "<div class='card-content'>" +
                     "<div class='row rating-form form-group'>" +
@@ -395,7 +399,7 @@ namespace LaundramatX.Classes
         }
 
         //Take the helper and convert it to an HTML list
-        public static string ConvertHelper(PostHelper helper, HttpSessionStateBase Session)
+        public static string ConvertHelper(PostHelper helper, HttpSessionStateBase Session, UrlHelper Url)
         {
             string PostResponse = "";
             string Stars = "";
@@ -440,7 +444,7 @@ namespace LaundramatX.Classes
             }
 
             helper.HelperTime = X.TimeAge(DateTime.Now, helper.HelperTime);
-            return $"<li id='PostHelperLI_{helper.ID}' class='collection-item avatar selected PostHelpersLI' role='button' data-postID='{helper.PostID}' data-helperID='{helper.ID}'><img src='{helper.Account.ProfilePic}' class='circle' />" +
+            return $"<li id='PostHelperLI_{helper.ID}' class='collection-item avatar selected PostHelpersLI' role='button' data-postID='{helper.PostID}' data-helperID='{helper.ID}'><img src='{getRootDir(Url) + helper.Account.ProfilePic}' class='circle' />" +
                               "<a href='/Account/Index?userID=" + helper.Account.AccountID + "'><span class='email-title'>" + helper.Account.Name + "</span></a>" +
                               "<p class='truncate grey-text ultra-small'>" +
                               "<div class='row rating-form form-group HelperRating'>" +
@@ -455,10 +459,10 @@ namespace LaundramatX.Classes
         }
 
         //Take a comment and convert it to an HTML list
-        public static string ConvertComment(Comment comment)
+        public static string ConvertComment(Comment comment, UrlHelper Url)
         {
             comment.CommentTime = TimeAge(DateTime.Now, comment.CommentTime);
-            return $"<li class='collection-item avatar selected PostCommentsLI'><img src='{comment.Account.ProfilePic}' class='circle'/>" +
+            return $"<li class='collection-item avatar selected PostCommentsLI'><img src='{getRootDir(Url) + comment.Account.ProfilePic}' class='circle'/>" +
                                             "<a href='/Account/Index?userID=" + comment.Account.AccountID + "'><span class='email-title'> " + comment.Account.Name + "</span></a>" +
                                             "<p class='truncate grey-text ultra-small'>" + comment.CommentMessage + "</p>" +
                                             "<a class='secondary-content email-time'><i class='mdi-editor-attach-file attach-file'>" +
@@ -466,7 +470,7 @@ namespace LaundramatX.Classes
         }
 
         //Convert one notification to the perfect format
-        public static string ConvertNotification(Notification notify, Account commenter = null, bool inDetail = false)
+        public static string ConvertNotification(Notification notify, UrlHelper Url, Account commenter = null, bool inDetail = false)
         {
 
             string NotifyIcon = "";
@@ -496,12 +500,12 @@ namespace LaundramatX.Classes
                 if (inDetail)
                 {
                     NotifyFrom = $"<a href='/Account/Index?UserID={commenter.AccountID}'><span class='blue-text truncate'><u>{commenter.Name} {commenter.Surname}</u></span></a>";
-                    NotifyIcon = $"<img src='{commenter.ProfilePic}' class='circle' style='width:60px;height:60px'/>";
+                    NotifyIcon = $"<img src='{getRootDir(Url) + commenter.ProfilePic}' class='circle' style='width:60px;height:60px'/>";
                 }
                 else
                 {
                     NotifyFrom = $"<span class='blue-text truncate'><u>{commenter.Name} {commenter.Surname}</u></span>";
-                    NotifyIcon = $"<img src='{commenter.ProfilePic}' class='circle' style='width:40px;height:40px'/>";
+                    NotifyIcon = $"<img src='{getRootDir(Url) + commenter.ProfilePic}' class='circle' style='width:40px;height:40px'/>";
                 }
 
                 Message = commenter.Name + " " + notify.Message;

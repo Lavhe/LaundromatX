@@ -200,17 +200,17 @@ namespace LaundramatX.Controllers
 
                     EditProfilePic.SaveAs(theImage);
 
-                    LaundromatX.Accounts.Where(acc => acc.AccountID == currentUser.AccountID).ToList()[0].ProfilePic = "/LaundromatX/App_Data/ProfilePics/" + ProfilePicName;
+                    LaundromatX.Accounts.Where(acc => acc.AccountID == currentUser.AccountID).ToList()[0].ProfilePic = "App_Data/ProfilePics/" + ProfilePicName;
                     LaundromatX.SaveChanges();
 
-                    ((Account)Session[X.UserX]).ProfilePic = "/LaundromatX/App_Data/ProfilePics/" + ProfilePicName;
+                    ((Account)Session[X.UserX]).ProfilePic = "App_Data/ProfilePics/" + ProfilePicName;
 
                 }
             }
             catch (Exception ex)
             {
 
-                string path = "/LaundromatX/App_Data/ProfilePics/DefaultAvatar.png";
+                string path = "App_Data/ProfilePics/DefaultAvatar.png";
 
                 if (currentUser == null)
                 {
@@ -341,7 +341,7 @@ namespace LaundramatX.Controllers
 
         public string fixpic() {
             LaundromatX.Accounts.ToList().ForEach((e) => {
-                e.ProfilePic = "/LaundromatX/Content/img/ProfilePics/DefaultAvatar.png";
+                e.ProfilePic = "Content/img/ProfilePics/DefaultAvatar.png";
             });
             LaundromatX.SaveChanges();
             return "done";
@@ -378,7 +378,7 @@ namespace LaundramatX.Controllers
             person.Pass = password;
             person.Gender = gender;
             person.DateCreated = X.FormatDateTime(DateTime.Now);
-            person.ProfilePic = "/LaundromatX/Content/img/ProfilePics/DefaultAvatar.png";
+            person.ProfilePic = "Content/img/ProfilePics/DefaultAvatar.png";
 
             if (email.ToLower() != "noemail")
             {
