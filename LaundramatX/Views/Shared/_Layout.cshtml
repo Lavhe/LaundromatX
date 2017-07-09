@@ -20,7 +20,7 @@
         if (ViewBag.Title != "Home Page")
         {
             <div id="LogInFAB" class="fixed-action-btn" style="bottom:45px;right:24px">
-                <a class="btn btn-floating waves-effect RedBg modal-trigger XButton z-depth-4" title="Log in" href="#LogInModal"><i class="material-icons">perm_identity</i></a>
+                <a role="button" class="btn btn-floating waves-effect RedBg modal-trigger XButton z-depth-4" title="Log in" onclick="OpenModal('#LogInModal')" href="#LogInModal"><i class="material-icons">perm_identity</i></a>
             </div>
         }
         <div id="LogInModal" class="modal bottom-sheet grey lighten-2">
@@ -89,7 +89,16 @@
             @*This is the floating button for logged in users to send clothes*@
             <div style="bottom:45px;right:48px">
                 <div class="fixed-action-btn">
-                    <a class="btn btn-floating waves-effect RedBg XButton" onclick="RedirectAction('@Url.Action(X.ReceivePage.link.Action,X.ReceivePage.link.Controller)')"><i class="material-icons">shopping_cart</i></a>
+                    <a id="BTNmenu" class="btn btn-floating waves-effect RedBg XButton" onclick="RedirectAction('@Url.Action(X.SendPage.link.Action,X.SendPage.link.Controller)')"><i class="material-icons">shopping_cart</i></a>
+                </div>
+            </div>
+
+            <div class="tap-target" data-activates="BTNmenu">
+                <div class="tap-target-content">
+                    <h5 class="text-center">Send Clothes</h5>
+                    <p class="text-center">
+                        Get started with sending your laundry to the nearest and cheapest laundromat.  
+                    </p>
                 </div>
             </div>
         }
@@ -117,7 +126,6 @@
                                     <a class="waves-effect dropdown-button tooltipped" data-beloworigin="true" data-constrainWidth="true" data-alignment="right" data-stoppropagation="false" role="button" onclick="GetAllNotifications('@X.GetUser(Session).AccountID')" data-position="bottom" data-tooltip="Notifications" data-activates="notification-dropdown"><i class="material-icons">notifications</i></a>
                                     <div id="notification-dropdown" class="dropdown-content row">
                                         <div class="col s12 row" id="notification_List">
-
                                         </div>
                                         <div class="col s12 center">
                                             <a class="btn btn-flat" href="@Url.Action("notifications","notify")">All notifications</a>
@@ -130,9 +138,7 @@
                             {
                                 <li><a class="tooltipped waves-effect" onclick="RedirectAction('@Url.Action(X.ReceivePage.link.Action, X.ReceivePage.link.Controller)')" data-position="bottom" data-tooltip="Receive"><i class="material-icons">@X.ReceivePage.icon</i></a></li>
                             }
-
                             <li><a class="tooltipped waves-effect waves-teal" onclick="RedirectAction('@Url.Action(X.SendPage.link.Action, X.SendPage.link.Controller)')" data-position="bottom" data-tooltip="Send"><i class="material-icons">@X.SendPage.icon</i></a></li>
-
                             @if (Convert.ToBoolean(Session[X.isActivatedX]))
                             {
                                 <li>

@@ -5,8 +5,10 @@
 interface JQuery {
     croppie({}): any;
     closeFAB(): void;
-    leanModal({dismissible, opacity: any}): any;
-    leanModal(): any;
+    modal({dismissible, opacity: any}): any;
+    modal(value:String): any;
+    modal(): any;
+    tapTarget(value):any;
     masonry({}): any;
     imagesLoaded({}): any;
     masonry(action, target: any): any;
@@ -26,6 +28,16 @@ interface JQuery {
     typed({}): any;
     autocomplete({}): any;
     geocomplete({}): any;
+}
+
+function OpenTap(){ 
+    $('.tap-target').tapTarget('open');
+}
+
+OpenTap();
+
+function OpenModal(target:string) {
+    $(target).modal('open');
 }
 
 //If the name is not found just declare it as a variable 
@@ -117,7 +129,7 @@ $(window).scroll((e) => {
 
                         //Initialize items
                         $('.materialboxed').materialbox();
-                        $('.modal-trigger').leanModal();
+                        $('.modal-trigger').modal();
                         $('.tooltipped').tooltip();
                     }
 
@@ -381,7 +393,7 @@ $(document).ready(() => {
         gutter: 1000
     });
     //Start the Modal functionality
-    $(".modal-trigger").leanModal({
+    $(".modal-trigger").modal({
         dismissible: false,
         opacity: .10
     });
@@ -1219,7 +1231,7 @@ $(document).ready(() => {
 
                 //Initialize items
                 $('.materialboxed').materialbox();
-                $('.modal-trigger').leanModal();
+                $('.modal-trigger').modal();
                 $('.tooltipped').tooltip();
                 $('.grid').imagesLoaded(function () {
                     $('.grid').masonry('reloadItems');
@@ -1527,7 +1539,7 @@ function PerformTheSearch(searchhh: string, f: string, s: string, link: string):
                 });
 
                 $('.materialboxed').materialbox();
-                $('.modal-trigger').leanModal();
+                $('.modal-trigger').modal();
                 $('.tooltipped').tooltip();
             }
 
@@ -2465,7 +2477,7 @@ function LoadMorePosts(userID) {
 
                 //Initialize items
                 $('.materialboxed').materialbox();
-                $('.modal-trigger').leanModal();
+                $('.modal-trigger').modal();
                 $('.tooltipped').tooltip();
             }
             $('#LoadingPosts').addClass('hidden');
@@ -2501,7 +2513,7 @@ function LoadMorePendingPosts(userID) {
 
                 //Initialize items
                 $('.materialboxed').materialbox();
-                $('.modal-trigger').leanModal();
+                $('.modal-trigger').modal();
                 $('.tooltipped').tooltip();
             }
             $('#LoadingPendingPosts').addClass('hidden');

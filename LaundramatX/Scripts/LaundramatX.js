@@ -1,5 +1,12 @@
 /// <reference path="jquery.d.ts" />
 /// <reference path="materialize.d.ts" />
+function OpenTap() {
+    $('.tap-target').tapTarget('open');
+}
+OpenTap();
+function OpenModal(target) {
+    $(target).modal('open');
+}
 //GLOBAL variable to store the name of the shake animation
 var animateShake = 'animated shake';
 var animateToLeft = 'animated zoomOutLeft';
@@ -75,7 +82,7 @@ $(window).scroll(function (e) {
                         });
                         //Initialize items
                         $('.materialboxed').materialbox();
-                        $('.modal-trigger').leanModal();
+                        $('.modal-trigger').modal();
                         $('.tooltipped').tooltip();
                     }
                     $('#LoadingPosts').addClass('hidden');
@@ -320,10 +327,11 @@ $(document).ready(function () {
         gutter: 1000
     });
     //Start the Modal functionality
-    $(".modal-trigger").leanModal({
+    $(".modal-trigger").modal({
         dismissible: false,
         opacity: .10
     });
+    alert("Here");
     //Start the masonry
     $('.grid').imagesLoaded(function () {
         $('.grid').masonry({
@@ -1075,7 +1083,7 @@ $(document).ready(function () {
                 $('#ReceiveSearchLoading').hide('slow');
                 //Initialize items
                 $('.materialboxed').materialbox();
-                $('.modal-trigger').leanModal();
+                $('.modal-trigger').modal();
                 $('.tooltipped').tooltip();
                 $('.grid').imagesLoaded(function () {
                     $('.grid').masonry('reloadItems');
@@ -1335,7 +1343,7 @@ function PerformTheSearch(searchhh, f, s, link) {
                     $('.grid').masonry('layout');
                 });
                 $('.materialboxed').materialbox();
-                $('.modal-trigger').leanModal();
+                $('.modal-trigger').modal();
                 $('.tooltipped').tooltip();
             }
             $('#SearchPreloader').addClass('hidden');
@@ -2147,7 +2155,7 @@ function LoadMorePosts(userID) {
                 });
                 //Initialize items
                 $('.materialboxed').materialbox();
-                $('.modal-trigger').leanModal();
+                $('.modal-trigger').modal();
                 $('.tooltipped').tooltip();
             }
             $('#LoadingPosts').addClass('hidden');
@@ -2180,7 +2188,7 @@ function LoadMorePendingPosts(userID) {
                 });
                 //Initialize items
                 $('.materialboxed').materialbox();
-                $('.modal-trigger').leanModal();
+                $('.modal-trigger').modal();
                 $('.tooltipped').tooltip();
             }
             $('#LoadingPendingPosts').addClass('hidden');
@@ -2226,4 +2234,3 @@ function ConvertCollectAt(location) {
         return "\n                                    <p>\n                                    HouseNumber: " + location['HouseNumber'] + "\n                                    </p>\n                                    <p>\n                                    StreetName: " + location['StreetName'] + "\n                                    </p>\n                                    <p>\n                                    LocalName: " + location['LocalName'] + "\n                                    </p>\n                                    <p>\n                                    City_TownName: " + location['City_TownName'] + "\n                                    </p>\n                                    <p>\n                                    Province: " + location['Province'] + "\n                                    </p>\n                                    <p>\n                                    Country: " + location['Country'] + "\n                                    </p>\n                                    ";
     }
 }
-//# sourceMappingURL=LaundramatX.js.map
