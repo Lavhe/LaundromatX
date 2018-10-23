@@ -1107,6 +1107,7 @@ $(document).ready(function () {
             var text = $(this).find('span').html();
             if (text.toLowerCase().indexOf(search.toLowerCase()) >= 0) {
                 $(this).show('slow');
+                //We found
             }
             else {
                 //Hide the rest
@@ -1839,6 +1840,7 @@ function RegisterUser(link, HomeLink) {
                 }
             }
             else if (i === 6) {
+                //We do not have to validate this 'Coz it is for If the user has an email or not'
             }
             else {
                 //This means the specific value is FALSE and we dnt want that
